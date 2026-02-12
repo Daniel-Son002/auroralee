@@ -39,7 +39,7 @@ function Contact() {
       <h2>Contact</h2>
       <form onSubmit={handleSubmit}>
         <input
-          name="Aurora Lee"
+          name="name"
           placeholder="Name"
           value={form.name}
           onChange={handleChange}
@@ -47,7 +47,7 @@ function Contact() {
         />
         <br /><br />
         <input
-          name="casaur2@gmail.com"
+          name="email"
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
@@ -55,7 +55,7 @@ function Contact() {
         />
         <br /><br />
         <textarea
-          name="Hello!"
+          name="message"
           placeholder="Message"
           value={form.message}
           onChange={handleChange}
