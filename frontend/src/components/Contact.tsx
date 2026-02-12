@@ -1,6 +1,8 @@
-import { useState, ChangeEvent, FormEvent } from "react"
+import { useState } from "react"
+import type { ChangeEvent, FormEvent } from "react"
 import axios from "axios"
 
+// Define interface for the form state
 interface ContactForm {
   name: string
   email: string
@@ -14,17 +16,22 @@ function Contact() {
     message: ""
   })
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  // Handle input changes
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    await axios.post("/api/contact", form)
-    alert("Message sent!")
-    setForm({ name: "", email: "", message: "" })
+    try {
+      await axios.post("/api/contact", form)
+      alert("Message sent!")
+      setForm({ name: "", email: "", message: "" })
+    } catch (error) {
+      console.error(error)
+      alert("Something went wrong. Please try again.")
+    }
   }
 
   return (
@@ -32,7 +39,7 @@ function Contact() {
       <h2>Contact</h2>
       <form onSubmit={handleSubmit}>
         <input
-          name="name"
+          name="Aurora Lee"
           placeholder="Name"
           value={form.name}
           onChange={handleChange}
@@ -40,7 +47,7 @@ function Contact() {
         />
         <br /><br />
         <input
-          name="email"
+          name="casaur2@gmail.com"
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
@@ -48,7 +55,7 @@ function Contact() {
         />
         <br /><br />
         <textarea
-          name="message"
+          name="Hello!"
           placeholder="Message"
           value={form.message}
           onChange={handleChange}

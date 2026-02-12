@@ -6,7 +6,7 @@ CORS(app)
 
 @app.route("/api/message")
 def message():
-    return jsonify({"message": "Welcome to my personal website!"})
+    return jsonify({"message": "I'm Aurora and I love to poo"})
 
 @app.route("/api/contact", methods=["POST"])
 def contact():
