@@ -1,0 +1,123 @@
+<html>
+<head>
+    <title>PS70: Intro to Digital Fabrication</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="js/customComponents.js"></script>
+</head>
+
+<body>
+    <div id="navbar">
+        <nav>
+            <a class="secondary-colored" href="./index.html"><span class="primary-colored">01. </span>Home</a>
+            <a class="secondary-colored" href="./about.html"><span class="primary-colored">02. </span>About</a>
+            <a class="secondary-colored" href="./finalProject.html"><span class="primary-colored">03. </span>Final Project</a>
+        </nav>
+    </div>
+    <div class="section">
+        <div id="final">
+            <h2><span class="primary-colored">Week 2. </span><span class="secondary-colored">2D Design & Cutting</span></h2>
+            <div class="section-content">
+                <div id="projectDetails">
+                    <div class="vertical-tab">
+                        <button class="verticaltablinks active"
+                            onclick="openTab(event, 'finaltab1', 'vertical')"
+                            style="border-top-left-radius: 10px;">Lasercutter</button>
+                        <button class="verticaltablinks"
+                            onclick="openTab(event, 'finaltab2', 'vertical')">Fusion360</button>
+                        <button class="verticaltablinks"
+                            onclick="openTab(event, 'finaltab3', 'vertical')">Calipers</button>
+                        <button class="verticaltablinks"
+                            onclick="openTab(event, 'finaltab4', 'vertical')">Vinyl</button>
+                    </div>
+                    <div id="finaltab1" class="verticaltabcontent default-focus" style="display: block; opacity: 1; position: relative;">
+                        <h3>Lasercut box</h3>
+                        <h5>Box Number 1</h5>
+                        <h5 class="range"><img src="wk2media/LasercutBox1_Fusion.jpeg" alt="Box 1 Fusion360 sketch" id="headshot" style="float: right"> To make my lasercut box, I first wanted to make a smaller version to test out the whole process. The first major obstacle that I came across was just downloading Fusion360 because my laptop iOS was too old (:/) and the app wouldn't open up on my computer. Once I finally got Fusion360 to open up, I watched the panopto finger joint box tutorial that was posted on the PS70 Canvas site (except without sound because I did not have my ear buds with me in class which was a mistake since I don't think I followed the video perfectly) and created a 2D box layout like the one from the video but with slightly different dimensions. This took me a while even after watching the tutorial because I had some trouble with duplicating the finger joints on the edge of the box (turns out I had left units on my variable for the number of fingers parameter which prevented the duplication from being able to use that parameter as the number of duplicates). </h5>
+                        <h5 class="range" style="text-align: center"><video id="smalljpg" controls autoplay muted><source src="wk2media/LasercutBox1.mp4" type="video/mp4"></video><img src="wk2media/LasercutBox1_2.JPG" alt="Box 1 folded" id="smalljpg"><img src="wk2media/LasercutBox1_3.JPG" alt="Box 1 folded" id="smalljpg"><img src="wk2media/LasercutBox1_1.JPG" alt="Box 1 cutout" id="smalljpg"></h5>
+                        <h5 class="range">Once I finally finished my Fusion360 sketch, I was able to use the laser cutter to make my first cardboard box (with step by step guidance from Nathan)! I used the same thickness measurement (4.4mm) as Nathan had in the tutorial (since I was cutting the same material) and the fingers snapped together pretty well which was amazing (and slightly surprising that I got it to work yay).</h5>
+                        <h5 class="range"><img src="wk2media/LasercutBox2_1.jpeg" alt="Box 2 failed Fusion360 sketch" id="smalljpg" style="float: right">This box was 80x60x50mm (plus thickness of the carboard), which nicely fit the Arduino boards we were given but not much else aka it was small, so I then tried to increase the size by changing the values of the parameters in Fusion. This did not work at all and gave a very weird looking sketch, so I decided to first watch another Fusion tutorial video and then create a completely new sketch afterwards, hopefully in a shorter amount of time.</h5>
+                        <h5>Box Number 2</h5>
+                        <h5 class="range"><img src="wk2media/LasercutBox2_2.JPG" alt="Box 2 new sketch" id="headshot" style="float: left">After watching the beginners Fusion360 tutorial, I created a completely new sketch and was able to create the same box cutout design as before in a much shorter time. And this time the parameters could be changed to scale the dimensions of the box up/down!</h5>
+                        <h5 class="range">I also decided that I wanted to add a lid to my box since we will be using them later to store things in lab, so I added another panel to my sketch with an extra lip to fold over and a tab that was supposed to fit into a slot in the front of the box. I thought I was all ready to print my new sketch, but there ended up being two problems. First of all, in an attempt to override my OCD, I decided to try to use the lasercutter without taking a million years to click the play button--this resulted in me missing the very crucial step of changing the material settings, which meant that the laser was too strong for the cardboard and it caught fire (shoutout to Bobby who stomped out the fire and Russell for going to the other room to get Bobby while I stood there freaking out...embarassing). Second, after cutting out the box and folding all of the scored lines (had to use a knife because the scoring wasn't strong enough), it came to my attention that I had put the slot for the closing tab on the wrong third of the front face of my box (I cut the correctly placed slot with a knife afterwards).</h5>
+                        <h5 class="range" style="text-align: center"><video id="smalljpg" controls autoplay muted><source src="wk2media/LasercutBox2.mp4" type="video/mp4"></video><img src="wk2media/LasercutBox2_3.jpg" alt="Burnt cardboard featuring Bobby's heroic sneaker" id="smalljpg"><img src="wk2media/LasercutBox2_4.JPG" alt="Box 2" id="smalljpg"><img src="wk2media/LasercutBox2_5.JPG" alt="Slot for tab that I hand cut on top where it should be vs where I had put it in Fusion" id="smalljpg"></h5>
+                        <h5>Box Number 3</h5>
+                        <h5 class="range"><img src="wk2media/LasercutBox3_1.jpg" alt="Final box open" style="float: right" id="smallerjpg">For my third (and final) box, I fixed the slot position in Fusion and also changed the dimensions of the box to be just big enough to fit a breadboard and my original, mini lasercut box (ended up being 180x140x60mm). Definitely got a bit faster with the whole process after having to do it so many times. This time I had Bobby watch me do the whole thing and nothing caught fire yay! And the tab fit into the slot (although I should have probably put the slot slightly lower, but it was close enough that I was happy with how it turned out and I didn't want to waste more cardboard).</h5>
+                        <h5 class="range" style="text-align: center"><img src="wk2media/LasercutBox3_2.jpg" alt="Final box open" id="smallerjpg"><img src="wk2media/LasercutBox3_3.jpg" alt="Final box closed (tab fits yay!)" id="smallerjpg"><img src="wk2media/LasercutBox3_4.jpg" alt="Final box with items that I wanted to fit inside" id="smallerjpg"></h5>
+                    </div>
+                    <div id="finaltab2" class="verticaltabcontent">
+                        <h3>Fusion360 Tutorial</h3>
+                        <h5 class="range">Since I had no idea what was going on with Fusion360, I decided to use the very beginnger tutorial that is linked on the PS70 website for this part of the weekly assignment <a target="_blank" href="https://www.youtube.com/watch?v=vVFYrBClkPc" class="tertiary-colored">(youtube video here).</a> </h5>
+                        <h5 class="range">The first part of this video went over how to start a sketch and create lines and arcs. I did not know the keyboard shortcut for drawing a line (just click L and then click esc when done with the line) and I did not know how to create an arc before (dragging the mouse while in the create line mode), so this was very helpful.</h5>
+                        <img src="wk2media/FusionTutorial1.jpeg" alt="Learning lines and arcs in Fusion" id="headshot">
+                        <h5 class="range">The tutorial then went over how to change the lengths and angles in the sketch, which I had somehow managed to do before but was not completely sure how I had done it so again, this was very helpful.</h5>
+                        <img src="wk2media/FusionTutorial2.jpeg" alt="Changing lengths and angles in Fusion" id="headshot">
+                        <h5 class="range">The most helpful part of this tutorial, I think, was the explanation on construction lines and using them to do the mirroring action. I had kind of used mirroring on my original test box sketch, but instead of using construction lines, I created a random line in the middle of the sketch, mirrored, and then deleted the line afterwards (which Bobby later pointed out to me would probably mess up the sketch if I tried to change the dimensions later which is exactly what happened...). Following the video, I created a few construction lines, made a couple of circles connected by a tangent line, and then mirrored the tangent line over one of the construction lines to create a closed shape.</h5>
+                        <img src="wk2media/FusionTutorial3.jpeg" alt="closed shape created with construction lines in Fusion" id="headshot">
+                        <h5 class="range">I also had not known about the trimming action in Fusion, which was used in the tutorial to get rid of the extra arcs/line segments inside of the closed shape.</h5>
+                        <img src="wk2media/FusionTutorial4.jpeg" alt="Trimming in Fusion" id="headshot">
+                        <h5 class="range">The video did not go over how to do anything in 3D, which I might need to learn later, but I think it will help me remake my box sketch much more efficiently the second time yay.</h5>
+                    </div>
+                    <div id="finaltab3" class="verticaltabcontent">
+                        <h3>Caliper Measurements</h3>
+                        <h5 class="range"><img src="wk2media/handSanitizer0.jpg" alt="original hand sanitizer bottle" id="smallerjpg" style="float: right"><img src="wk2media/handSanitizerSketch.jpg" alt="post-it note measurements" id="smalljpg" style="float: left">For this part of the assignment, I decided to model/measure the lid and bottom bottle of my little hand sanitizer container hanging on my backpack. I thought this would be fun since it already has two separate pieces that I could put together to create an assembly, and also because I love hand sanitizer (hahaha weird...) and have been using this specific refillable bottle since the fifth grade. I measured all the different demensions of the objects using the calipers and made little sketches on some post-it notes to use as a reference later. Before attempting to do the modeling on Fusion(learned from all the extra time I took to make the cardboard box before watching tutorials), I watched a youtube tutorial that Bobby suggested on modeling a LEGO brick in Fusion (<a target="_blank" href="https://www.youtube.com/watch?v=6yPKMSb6ja8" class="tertiary-colored">Youtube LEGO brick Fusion Tutorial link</a>) and one on using threads in Fusion, since the lid and bottle have threads that allow them to fit together (<a target="_blank" href="https://www.youtube.com/watch?v=aGWrFeu8Hv0" class="tertiary-colored">Youtube threads Fusion Tutorial link</a>).</h5>
+                        <h5 class="range">I decided to start with the bottom bottle part in Fusion. After watching the Youtube tutorials, creating the very basic shape and then turning it into a hollow bottle was relatively quick. I also learned from the tutorials how to add fillets to round out the edges of the bottle to look more like my actual hand sanitizer bottle.</h5>
+                        <h5 class="range" style="text-align: center"><img src="wk2media/handSanitizer1.jpg" alt="basic bottle shape before fillets" id="smallerjpg"></h5>
+                        <h5 class="range">I then realized that the bottom of the bottle had a slight indent in it, so I went back to lab to use the calipers to measure how deep the depression was so I could add it to my model. I also watched <a target="_blank" href="https://www.youtube.com/watch?v=pZB5owGTy_Y" class="tertiary-colored">another Youtube tutorial</a> on making convex shapes so I could see how to loft a surface in Fusion. I followed this tutorial to create a new offset plane above the bottom of the bottle and loft the bottom up to this plane. However, I couldn't figure out how to shell this depression in the surface and get rid of the original surface. It took me a veryyyyyyy long time to finally get the exact shape that I wanted; I am not entirely sure how it ended up working, but I think I somehow merged a couple of surfaces before the shell function would work how I wanted it to.</h5>
+                        <h5 class="range" style="text-align: center"><img src="wk2media/handSanitizer2.jpg" alt="creating new plane to loft bottom of bottle" id="smallerjpg"><img src="wk2media/handSanitizer3.jpg" alt="lofting bottom of bottle" id="smallerjpg"></h5>
+                        <h5 class="range">The next step was to create the threads on the neck of the bottle. This was relatively quick since I had watched a whole Youtube tutorial on it already. That being said, I am not sure how accurate this part of the model is because it was difficult to get precise measurements of the threads using the calipers, but I measured as best I could. Also, I still don't completely understand a couple of the selections in the thread menu like "thread type," and some of the thread dimensions are sort of pre-set in a dropdown menu rather than being able to type in specific numerical values (eg I wanted a size of 14.5mm but had to choose between 14 and 15mm), but I still think it turned out pretty close to my actual bottle.</h5>
+                        <h5 class="range" style="text-align: center"><img src="wk2media/handSanitizer4.jpg" alt="creating bottom bottle threads" id="smalljpg"></h5>
+                        <h5 class="range"><img src="wk2media/handSanitizer5.jpg" alt="misaligned threads" id="smalljpg" style="float: right">After finishing the model of the bottom bottle, I created a new component to start modeling the lid of the bottle. I definitely underestimated how difficult the lid would be, and I ran into two main issues when creating the model, the first being the threads in the bottom section of the lid and the second being that the top of the lid can open/close with a hinge. I started the model of the lid by making the basic shape of the bottom of the lid by itself (went relatively smoothly, although took some extra time to figure out how to create a hole through the whole object rather than just shell). When I tried to add threads to the inside and view the lid with the bottle to see how everything lined up, the threads were all overlapping instead of fitting into each other. Took me a while to fix the issue, but eventually I figured out how to rotate the lid component and shift it upwards (since the lid on my actual bottle doesn't actually twist all the way down), as well as cut away some of the lid thickness that was added when I added in the threads.</h5> 
+                        <h5 class="range"><img src="wk2media/handSanitizer6.jpg" alt="creating top of hinge" id="smalljpg" style="float: left">Once I finally aligned all of the threads, I created a separate object for the top section of the lid using the same plane as the bottom section of the lid so that it appeared to be open. I then tried to add a static model of the hinge connected the top and bottom of the lid. I tried to find a tutorial to see how to create a hinge, but all of the videos seemed to be showing how to create a round hinge rotating around a pin going through the middle, which was not what my hand sanitizer bottle has. So, I decided to just model the lid open without actual movement around the hinge. This still took some experimenting because I only knew how to loft a surface with respect to a single point when I wanted to loft the surface that was connecting the bottom and top lid with respect to a line segment--turns out you just do it one point at a time (wow took me way longer to figure that out than it should have). And like when I was lofting the bottom of the bottle component, I couldn't figure out how to shell the hinge so that the bottom surface would be parallel to the top surface that I had just lofted (sadly, I had spent so much time on everything and on trying to figure this out that eventually I came to terms with just leaving the surface flat...:( ). Overall, though, I did feel very accomplished when I finally finished the model (yay). Hopefully next time it just won't take me so long :) Here are the final things (bottom bottle by itself, top by itself, and the two put together as an assembly with a cut through the model so you can see the threads actually fitting together):</h5>
+                        <h5 class="range" style="text-align: center"><img src="wk2media/handSanitizerBottom.gif" alt="bottle bottom in Fusion" id="headshot"><img src="wk2media/handSanitizerTop.gif" alt="bottle lid in Fusion" id="headshot"><img src="wk2media/handSanitizerAssembly.gif" alt="bottle bottom and lid assembly in Fusion" id="headshot"></h5>
+                    </div>
+                    <div id="finaltab4" class="verticaltabcontent">
+                        <h3>Vinyl Cutter</h3>
+                        <h5 class="range"><img src="wk2media/eggSticker0.jpg" alt="inkscape design for egg" style="float: right" id="smalljpg">I was sooooo excited to hear about the vinyl cutter because I LOVE STICKERSSSS :D !!!!! After seeing the quick run-through of how to use the machine in class, I checked what color rolls of the vinyl were in the lab (black, white, red, yellow, bright green...). Based on those colors, I decided I wanted to make a sticker shaped like a fried egg using black, white, and yellow vinyl. I watched two tutorial videos for how to use inkscape to make a design with multiple colors (<a target="_blank" href="https://www.youtube.com/watch?v=rFYQW2DCM2I" class="tertiary-colored">Youtube inkscape tutorial 1</a> & <a target="_blank" href="https://www.youtube.com/watch?v=Z9Qqo5Cabmw" class="tertiary-colored">Youtube inkscape tutorial 2</a>). I think the most helpful part was seeing how to draw curves and how to use the path-->difference function to cutout the parts of each layer where I wanted the bottom black layer to show through. I ended up with an inkscape file with three layers: the bottom black outline layer, the egg-white part with a circle cut out for the yolk, and a yellow circle with a face cutout.</h5>
+                        <h5 class="range"><video id="smallerjpg" style="float: left" controls autoplay muted><source src="wk2media/eggSticker.mp4" type="video/mp4"></video>After making the inkscape design, I went back to lab to actually cut it out with the vinyl cutter. I was very lucky and got help from both Bobby and Kassia, so the cutting process went relatively well. I did forget to put down the wheels to secure the vinyl roll one time, but this just made the machine move the sheet around without actually scratching/cutting anything, so I was still able to use the same piece of vinyl for my sticker. I also had an issue with the yellow layer at first because I cut a sheet of vinyl that was too small for the machine and it would not print. Also, the face cutouts in the yellow layer of the sticker were super small, so I had to use a sewing pin to poke them out. Other than that, I think it went pretty well and I am super excited to have access to the vinyl cutter to make more stickers YAYAYAY!!!!!!!! (I decided to put my sticker on my cardboard box :)...and I also used some of the scraps to tape the corners of my box for extra support)</h5>
+                        <h5 class="range" style="text-align: center"><img src="wk2media/eggSticker2.jpg" alt="bottom black layer of sticker" id="smallerjpg"><img src="wk2media/eggSticker3.jpg" alt="white layer of sticker" id="smallerjpg"><img src="wk2media/eggSticker4.jpg" alt="black and white layers of sticker together" id="smallerjpg"><img src="wk2media/eggSticker5.jpg" alt="yellow layer of sticker" id="smallerjpg"><img src="wk2media/eggSticker1.jpg" alt="final egg sticker!" id="smallerjpg"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, id, type) {
+            var i, tabcontent, tablinks, hgt;
+            if (type == "horizontal"){
+                tabcontent = document.getElementsByClassName("tabcontent");
+                tablinks = document.getElementsByClassName("tablinks");
+                hgt = "75%";
+            } else if (type == "vertical"){
+                tabcontent = document.getElementsByClassName("verticaltabcontent");
+                tablinks = document.getElementsByClassName("verticaltablinks");
+                hgt = "87.5%";
+            }
+
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.opacity = "0";
+                tabcontent[i].style.height = "0";
+                tabcontent[i].style.position = "absolute";
+                tabcontent[i].style.transform = "translateY(-3px)";
+            }
+
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            var selectedTab = document.getElementById(id);
+            selectedTab.style.height = hgt;
+            selectedTab.style.position = "relative";
+            selectedTab.style.opacity = "1";
+            selectedTab.style.transform = "translateY(0px)";
+            selectedTab.style.transition = "opacity 0.5s ease-in, transform 0.8s ease-in-out";
+            
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+
+</html>

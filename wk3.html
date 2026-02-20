@@ -1,0 +1,109 @@
+<html>
+<head>
+    <title>PS70: Intro to Digital Fabrication</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="js/customComponents.js"></script>
+</head>
+
+<body>
+    <div id="navbar">
+        <nav>
+            <a class="secondary-colored" href="./index.html"><span class="primary-colored">01. </span>Home</a>
+            <a class="secondary-colored" href="./about.html"><span class="primary-colored">02. </span>About</a>
+            <a class="secondary-colored" href="./finalProject.html"><span class="primary-colored">03. </span>Final Project</a>
+        </nav>
+    </div>
+    <div class="section">
+        <div id="final">
+            <h2><span class="primary-colored">Week 3. </span><span class="secondary-colored">Hand Tools and Fabrication</span></h2>
+            <div class="section-content">
+                <div id="projectDetails">
+                    <div class="vertical-tab">
+                        <button class="verticaltablinks active"
+                            onclick="openTab(event, 'finaltab1', 'vertical')"
+                            style="border-top-left-radius: 10px;">Toaster</button>
+                        <button class="verticaltablinks"
+                            onclick="openTab(event, 'finaltab2', 'vertical')">Circuit</button>
+                        <button class="verticaltablinks"
+                            onclick="openTab(event, 'finaltab3', 'vertical')">Video!</button>
+                    </div>
+                    <div id="finaltab1" class="verticaltabcontent default-focus" style="display: block; opacity: 1; position: relative;">
+                        <h3>Kinetic Sculpture Inspo --> Toaster!</h3>
+                        <h5 class="range"><img src="wk3media/toastDrawing.jpg" alt="Pinterest PBJ toasts" id="smalljpg" style="float: right">My most recent obsession has been cute doodles of peanut butter toast and jelly toast (like this one I found on pinterest), so I decided that I wanted to make a little toaster with pieces of toast moving up and down for my kinetic sculpture. Looking at the examples of kinetic sculptures from lab, I thought that I could make my sculpture similar to the cardboard sculpture of the butterfly flapping its wings but replace the butterfly with the slices of toast. Based on this design, to make this project I would need to design the following parts on Fusion: <li>the outer box for the toaster</li><li>a camshaft component with two cams set in opposite directions</li><li>a slice of toast with faces (x2)</li></h5>
+                        <h3>Making my toaster :D</h3>
+                        <h5 class="range">At first, I thought I would start by making the outer toaster box in Fusion. However, this left me feeling a bit stuck since I couldn't really visualize what exactly would be going on inside of the outer toaster box, so I had no idea how large the box should be or if I needed a plain box shape vs a weird shape etc. Bobby helped me better orient myself by first creating a simple mechanism using an automata kit and focusing on the inner mechanism first before making the outer box design. I very quickly (well not really that quickly) made a very small and simplified Fusion sketch for a single cam and single wall just to better visualize how the pieces would all fit together with the cardboard and wooden dowels (and get more practice using parameters in Fusion) and print it with the laser cutter.</h5>
+                        <h5 class="range" style="text-align: center"><img src="wk3media/toasterTest0_1.jpg" alt="simple automata mechanism" id="smalljpg"><img src="wk3media/toasterTest0_2.jpg" alt="simple automata mechanism" id="smalljpg"><img src="wk3media/toasterTest0.jpg" alt="very simplified mechanism test" id="smalljpg"></h5>
+                        <h5>Test mechanism 1</h5>
+                        <h5 class="range"><video id="smalljpg" style="float: right" controls autoplay muted><source src="wk3media/toasterTest1.mp4" type="video/mp4"></video>I felt a lot less overwhelmed once I got my test 0 all printed/cut out and went straight into sketching a new test on Fusion with two cams and two walls, as well as a longer piece to hold the dowels that would be moving up and down (per Bobby's suggestion). I also designed two slices of toast with faces in inkspace kind-of inspired by some of the funny shaped slices of toast in the window of the Friendly Toast that I pass everyday on the way to class, and I googled how to import an inkscape svg into Fusion so that I could cut them out on the lasercutter. Instead of engraving the details on them, I decided to just score them so that it would be faster (plus I thought the deeper cuts might actually look better for this).</h5>
+                        <h5 class="range"><img src="wk3media/toasterTest1_1.jpg" alt="Test mechanism 1 on the lasercutter" id="smallerjpg" style="float: left">When putting the cams together (one smaller circle with two slightly larger circles around it), I realized that it would probably work a bit better to have two smaller circles in the center so that the track that the moving dowels follow would fit the diameter of the dowels better. I only had two smaller circles in my Fusion sketch, so I just made one cam for this test run and decided to print extra in my next test. I used hot glue to put the cam together and to attach the walls to the plank piece (also realized I made two plank pieces but only one hole so I could only use one of them...).</h5>
+                        <h5 class="range" style="text-align: center"><img src="wk3media/toasterTest1_2.jpg" alt="Test 1 cam" id="smalljpg"><img src="wk3media/toasterTest1_3.jpg" alt="Test 1 put together" id="smalljpg"></h5>
+                        <h5>Test mechanism 2</h5>
+                        <h5 class="range"><img src="wk3media/toasterTest2_1.jpg" alt="Test 2 cams and walls" id="smalljpg" style="float: left">For my second test, I still wanted to use the cam I made from test 1 (since I did not hot glue it to a dowel well and it came off) and I wanted to make the dimensions of the walls as small as possible to fit the cams but also add another rectangular slot so that I could insert two plank pieces instead of just one. So, for my test 2 Fusion sketch, I resized the walls, added the extra slots, made the planks slightly longer than before, and left the two smaller, inner circles for the second cam (and removed the outer ones because I already had some from test 1 that I didn't use). Again, I used hot glue to put everything together, and this time, I actually glued the cams to the wooden dowel (which I sawed in half using a knife and then covered the end with a dot of hot glue) but opposite to each other so that one would be pointing up while the other would be down. Everything fit pretty well together, but when I put a dowel through the top to see if it would move up and down, it would just slip off to the side of the cam and get stuck.</h5>
+                        <h5 class="range"><img src="wk3media/toasterTest2_2.jpg" alt="Test 2 up/down rods" id="smallerjpg" style="float: right">Looking at the butterfly example from class, I saw that it would probably work better if I put a small piece perpendicular to the dowel so that it could slide across the cams better without falling off the side of the cam. I lasercut a few small pieces of cardboard for this purpose and then put everything together and the mechanism worked yay (although not super consistently because the corners of the perpendicualr pieces of cardboard would sometimes get caught on the side of the cams--I trimmed the corners to make them round and then they stopped getting caught).</h5>
+                        <h5 class="range" style="text-align: center"><video id="headshot" controls autoplay muted><source src="wk3media/toasterTest2.mp4" type="video/mp4"></video></h5>
+                        <h5 class="range">The next step was to create the outer toaster box to cover the spinning cam mechanism. I wanted to make a shape with rounded corners at the top and straight corners at the bottom. To make the rounded corners out of cardboard, I put extra cuts in my Fusion sketch so that I could bend the cardboard piece. I also did not cut out a back surface for the box so that I could still see the cam mechanism inside of the box. After printing the sketch out and gluing it together, I realized that I had put the two slits in the top for the two slices of toast a bit too far apart, which made the mechanism not work very well since it restricted the movement of the poles moving up and down.</h5>
+                        <h5 class="range" style="text-align: center"><video id="smalljpg" controls autoplay muted><source src="wk3media/toasterBox1.mp4" type="video/mp4"></video><img src="wk3media/toasterBox1.jpg" alt="Outer box first iteration" id="smalljpg"></h5>
+                        <h5 class="range">I made a new sketch so that the slits lined up with the toast poles. However, after cutting this sketch out, I realized that when I resized my sketch, I had ignored the fact that the distance between the front of the outer box and the first slit in the first iteration had actually been the correct distance aka the slit was now too close to the front of the outer box. I didn't want to keep wasting materials so I ended up gluing the slit cutouts between the front wall piece and the sides/top piece of the outer box to create the correct distances. Of course this looked really funny, so I decided to print out a white vinyl sticker to go over the top of the toaster box and cover up the messed up edges.</h5>
+                        <h5 class="range" style="text-align: center"><img src="wk3media/toasterBox2.jpg" alt="putting outer box second iteration onto cam mechanism" id="smalljpg"><img src="wk3media/toasterBox2_1.jpg" alt="toaster after using scraps to align misaligned outer box" id="smalljpg"></h5>
+                        <h5 class="range"><img src="wk3media/toasterMotor1.jpg" alt="crooked heatshrink" id="smallerjpg" style="float:right">The next step was to connect a motor to my kinetic sculpture. I got some guidance from Nathan on how to do this. First, I used heat shrink to attach the motor to the wooden dowel that spins the cams in the toaster. I noticed a bit later that after leaving the motor just hanging freely, the heat shrink had hardened crooked, so I had to use a heatgun to redo this and held it in a straight position the second time so that the connection was a straight line.</h5>
+                        <h5 class="range"><img src="wk3media/toasterMotor2.jpg" alt="materials for adding bottom and motor block" id="smalljpg" style="float:left">Then I used the lasercutter to cut out two rectangles of wood (first time using wood! Again, got some help from Nathan) and used wood glue to glue them together (along with a piece of cardboard the same size) to get a wooden block with thickness that went from the cardboard mechanism wall to the surface of the motor. I also repurposed the front wall of my first iteration of the outer toaster box as a bottom surface for my final toaster kinetic sculpture so that it would be a bit more sturdy (although it still ended up a little bit flimsy since I used more hot-gluing than I maybe should have).</h5>
+                        <h5 class="range"><img src="wk3media/toasterMotor3.jpg" alt="attached motor!" id="smalljpg" style="float:right">The last step was to actually attach the motor to the wooden block that I added. Of course I got some more help from Nathan for this step, and he helped me with using a hand drill to drill a hole (I measured out where to drill the hole beforehand) in the wooden block. Then I used a long screw going through the hole in the motor and the hole I made in the wood block to finish off my toaster yay!!</h5>
+                        <img src="wk3media/toaster1.jpg" alt="final toaster!" id="headshot" style="float:left">
+                    </div>
+                    <div id="finaltab2" class="verticaltabcontent">
+                        <h3>Circuitry and Ohm's Law</h3>
+                        <h5 class="range"><video id="headshot" style="float:left" controls autoplay muted><source src="wk3media/toasterMove.mp4" type="video/mp4"></video>I was very scared to actually have the motor that was attached to the toaster spin because I knew that the motor at 5 volts would spin very fast and I wasn't sure if my (slightly flimsy oops) mechanism would fall apart if the motor was turned on. Luckily, Bobby helped me out a TON with testing how much voltage to use and creating a circuit to power the motor. However, for the speed that I wanted (we used the benchtop power supply machine (I forget what it is normally called...) to find that 1.7V resulted in a good speed), the amount of current was too small for the motor to actually run. After lots of trial and error, we settled on just using the 3.3V output without using extra resistors. I tried to do some calculations and circuit diagrams based off of some Khan Academy lessons and <a target="_blank" href="https://www.adafruit.com/product/3777" class="tertiary-colored">the info on this site</a> (work below), but I am not sure if anything I did makes sense or if I even used the correct values...<img src="wk3media/toasterCalcs.jpg" alt="Circuit Calculations" style="max-width: 100%; height: auto"></h5>
+                    </div>
+                    <div id="finaltab3" class="verticaltabcontent">
+                        <h3>Final Videos of Kinetic Sculpture</h3>
+                        <h5 class="range">Here is the video of the final kinetic sculpture using the 3.3V output from the arduino board connected to my laptop:</h5>
+                        <video style="max-width:100%; height:auto; margin: 10px"controls autoplay muted><source src="wk3media/toasterFinal.mp4" type="video/mp4"></video>
+                        <h5 class="range">After being introduced to some Arduino programming in class on Tuesday, I used the same wiring setup and some of the code from class (deleted most of the functions and used trial and error to find that the minimum voltage needed to get the motor started was around 115/255 of 5V, which is around 2.25V) to make the slices of toast move slower.</h5>
+                        <center><img src="wk3media/toasterArduino.jpg" alt="connection to Arduino (same as in class exercise)" id="headshot"><video id="headshot" controls autoplay muted><source src="wk3media/toasterArduino.mp4" type="video/mp4"></video></center>
+                        <img src="wk3media/toasterCode.jpg" alt="altered Arduino code from class" style="max-width:100%; height:auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, id, type) {
+            var i, tabcontent, tablinks, hgt;
+            if (type == "horizontal"){
+                tabcontent = document.getElementsByClassName("tabcontent");
+                tablinks = document.getElementsByClassName("tablinks");
+                hgt = "75%";
+            } else if (type == "vertical"){
+                tabcontent = document.getElementsByClassName("verticaltabcontent");
+                tablinks = document.getElementsByClassName("verticaltablinks");
+                hgt = "87.5%";
+            }
+
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.opacity = "0";
+                tabcontent[i].style.height = "0";
+                tabcontent[i].style.position = "absolute";
+                tabcontent[i].style.transform = "translateY(-3px)";
+            }
+
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            var selectedTab = document.getElementById(id);
+            selectedTab.style.height = hgt;
+            selectedTab.style.position = "relative";
+            selectedTab.style.opacity = "1";
+            selectedTab.style.transform = "translateY(0px)";
+            selectedTab.style.transition = "opacity 0.5s ease-in, transform 0.8s ease-in-out";
+            
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+
+</html>

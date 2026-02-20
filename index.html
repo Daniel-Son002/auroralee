@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>Aurora Personal Website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="js/customComponents.js"></script>
+</head>
+
+<body>
+    <div id="navbar">
+        <nav>
+            <a class="secondary-colored" href="./index.html"><span class="primary-colored">01. </span>Home</a>
+            <a class="secondary-colored" href="./about.html"><span class="primary-colored">02. </span>About</a>
+            <a class="secondary-colored" href="./finalProject.html"><span class="primary-colored">03. </span>Contact</a>
+        </nav>
+    </div>
+    <div class="section">
+        <div id="intro">
+            <!-- <div>
+                <h1 id="intro-line" class="primary-colored">Aurora Lee</h1>
+            </div> -->
+            <div>
+                <h2 id="name">Aurora Lee</h2>
+            </div>
+            <div>
+                <p id="description">I like to poo</p>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <script>
+        // Function to handle smooth scroll behavior when clicking links within <nav>
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth' // Add smooth scrolling behavior
+                    });
+                }
+            });
+        });
+
+        function openTab(evt, id, type) {
+            var i, tabcontent, tablinks, hgt;
+            if (type == "horizontal"){
+                tabcontent = document.getElementsByClassName("tabcontent");
+                tablinks = document.getElementsByClassName("tablinks");
+                hgt = "75%";
+            } else if (type == "vertical"){
+                tabcontent = document.getElementsByClassName("verticaltabcontent");
+                tablinks = document.getElementsByClassName("verticaltablinks");
+                hgt = "87.5%";
+            }
+
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.opacity = "0";
+                tabcontent[i].style.height = "0";
+                tabcontent[i].style.position = "absolute";
+                tabcontent[i].style.transform = "translateY(-3px)";
+            }
+
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            var selectedTab = document.getElementById(id);
+            selectedTab.style.height = hgt;
+            selectedTab.style.position = "relative";
+            selectedTab.style.opacity = "1";
+            selectedTab.style.transform = "translateY(0px)";
+            selectedTab.style.transition = "opacity 0.5s ease-in, transform 0.8s ease-in-out";
+            
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<html>
+<head>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arduino-light.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <title>Aurora Personal Website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="js/customComponents.js"></script>
+</head>
+
+<body>
+    <div id="navbar">
+        <nav>
+            <a class="secondary-colored" href="./index.html"><span class="primary-colored">01. </span>Home</a>
+            <a class="secondary-colored" href="./about.html"><span class="primary-colored">02. </span>About</a>
+            <a class="secondary-colored" href="./finalProject.html"><span class="primary-colored">03. </span>Contact</a>
+        </nav>
+    </div>
+    <div class="section">
+        <div id="contact">
+            <h2>Contact Me</h2>
+
+              <form action="mailto:casaur2@email.com" method="POST" enctype="text/plain">
+                
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <label for="email">Your Email:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+                <button type="submit">Send</button>
+
+              </form>
+        </div>
+</body>
+
+</html>

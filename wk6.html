@@ -1,0 +1,206 @@
+<html>
+<head>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arduino-light.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <title>PS70: Intro to Digital Fabrication</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="js/customComponents.js"></script>
+</head>
+
+<body>
+    <div id="navbar">
+        <nav>
+            <a class="secondary-colored" href="./index.html"><span class="primary-colored">01. </span>Home</a>
+            <a class="secondary-colored" href="./about.html"><span class="primary-colored">02. </span>About</a>
+            <a class="secondary-colored" href="./finalProject.html"><span class="primary-colored">03. </span>Final Project</a>
+        </nav>
+    </div>
+    <div class="section">
+        <div id="final">
+            <h2><span class="primary-colored">Week 6. </span><span class="secondary-colored">Electronic Input Devices</span></h2>
+            <div class="section-content">
+                <div id="projectDetails">
+                    <div class="vertical-tab">
+                        <button class="verticaltablinks active"
+                            onclick="openTab(event, 'finaltab1', 'vertical')"
+                            style="border-top-left-radius: 10px;">Capacitive Sensor</button>
+                        <button class="verticaltablinks"
+                            onclick="openTab(event, 'finaltab2', 'vertical')">Other Sensor</button>
+                        <button class="verticaltablinks"
+                            onclick="openTab(event, 'finaltab3', 'vertical')">CNC CAD Files</button>
+                    </div>
+                    <div id="finaltab1" class="verticaltabcontent default-focus" style="display: block; opacity: 1; position: relative;">
+                        <h3>Capacitive Sensor</h3>
+                        <h5 class="range"><img src="wk6media/capacitor1.jpg" alt="copper tape soldered to wires" id="smalljpg" style="float: left">For my capacitive sensor, I took some inspiration from <a target="_blank" href="https://bobbymmccarthy.github.io/ps70/week6.html" class="tertiary-colored">Bobby's website</a> and made a sensor that detects the amount of liquid in a plastic bottle. I used a small plastic orange juice bottle as the container because the sides happened to be flat so I could easily make the copper tape strips parallel to each other, and I started off with the code that we used in class for <a target="_blank" href="https://nathanmelenbrink.github.io/lab/input/capacitance/txrx.html" class="tertiary-colored">tx_rx sensing</a> but changed it slightly so that there was a timer instead of delay function. Nathan suggested soldering wires to copper tape to get a better reading--I had never actually soldered anything before so he helped me out and I successfully connected each of two copper tape strips to a wire (yay :D)!</h5>
+                        <h5 class="range"><img src="wk6media/capacitor2.jpg" alt="capacitor setup with tape on outside of container --> doesn't work :(" id="smalljpg" style="float:right">I then stuck the copper tape on parallel sides of the juice bottle. I used the same setup from class when creating the circuit with the breadboard, arduino, and resistor. However, when I poured water into the bottle, the reading on the Arduino code was not changing. I thought it might be because I messed up the code somehow when I was trying to get rid of the delay, so I changed my code back to be exactly the same as the code from class. The reading still wasn't changing value, so I tried using larger pieces of copper tape that were not connected to the bottle and clipped to the circuit with alligator clips to see if the size of the tape was an issue (per Bobby's suggestion). This still did not seem to work (readings were all the same even when changing the distance between copper tape pieces), but when I tried dipping the two pieces of tape into a cup of water, the readings DID start to change. I wanted to be able to still use the same original tape since I had already soldered them to wires, so I tested them to make sure they were large enough by just dipping the outside of the bottle (which the tape was still stuck on) into the cup of water, which worked.</h5>
+                        <h5 class="range"><img src="wk6media/capacitor3.jpg" alt="capacitor setup with tape on inside of container --> works yay :)" id="headshot" style="float:left">To use the same copper tape, I just had to peel it off of the outside and get it to stick on the inside of the bottle. Since the neck of the bottle was skinnier than the main body, I just used a knife and some scissors to cut off the bottle neck and bascially ended up with a rectangular plastic cup that I could easily put the tape inside of. Now I could pour water in and the output values of the code would change yay! (to be honest, I kind of forgot about changing the code back to not using a delay function and Bobby said a 100 microsecond delay should be fine so I ended up just using the code from the PS70 website without the timer changes). I used a measuring cup to pour 20mL of water into the cup at a time and note the approximate output value. I continued to do this up to 120mL, and the measurements are in the table below. I am not sure how accurate these values are, though, because the output values were not constant and seemed to continue to decrease between each added 20mL (I did try to wait about 2 minutes after each pour before recording the output value, but even then the values weren't completely stabilized). I used google sheets to graph these values and it created a line of best fit for the points of -2414(mL water) + 101761 = output, which had a pretty high R squared value (seemed to fit a linear relationship fairly well).</h5>
+                        <h5 class="range" style="text-align:center"><img src="wk6media/capacitorTable.png" alt="table of readings" id="headshot"></h5>
+                        <h5 class="range" style="text-align:center"><img src="wk6media/capacitorGraph.png" alt="scatterplot graph of readings with line of best fit" style="max-width: 100%; height:auto"></h5>
+                        <h5 class="range" style="text-align:center"><img src="wk6media/capacitorCircuit.jpg" alt="diagram of the circuit for the capacitive sensor" style="max-width: 100%; height:auto"></h5>
+                    </div>
+                    <div id="finaltab2" class="verticaltabcontent">
+                        <h3>Voltage Dividers</h3>
+                        <h5 class="range">For my other sensor, I wanted to do something related to my final project mechanism, which will involve a bunch of voltage dividers with different resistors so that each voltage divider can correspond with a digit 0 through 9. Then, the Arduino needs to be able to differentiate between these voltage dividers so that it can identify which of the 10 digits is currently connected (thank you PS70 staff for this idea). I started off by planning out which resistors I would need for each of the 10 digits. I divided the Arduino's 5V output into 10 ranges of values, with each range covering 0.5 volts and corresponding to a digit 0-9. I then used <a target="_blank" href="https://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-voltage-divider" class="tertiary-colored">this site</a> to quickly calculate the voltage output of a voltage divider that is getting 5V of input, uses a 1k ohm resistor as its first resistance, and uses various other available resistors as the second resistance. Bobby also reminded me that you can put resistors in series to make them add up and create whatever second resistance value required to get a certain output. I played around with a bunch of values until I had a good second resistance for each digit (highlighted in blue on my work below). I also then used a program to output the values that the analog pin was reading when connected to each of the 10 voltage dividers.</h5>
+                        <h5 class="range" style="text-align:center"><img src="wk6media/voltageDividerTable.jpg" alt="work for choosing resistors for each digit" style="max-width: 100%; height:auto"></h5>
+                        <h5 class="range">I then moved on to building my cicuit with all 10 of the different voltage dividers together (I enjoyed this part because I like how it looks at the end with all of the resistors lined up hehe...). I made sure all of the first resistors lined up with a connection to 5V and all of the last resistors lined up with a connection to GND and then left the analog pin that would be doing the reading with a wire that was not conencted to anything but could be moved around to any of the 10 voltage dividers that I had set up. I then took a while to write a code that would differentiate between all of the different voltage dividers and then print an output identifying which digit corresponded to the voltage divider that the analog pin was currently connected to. One problem I ran into was in one of my if statements, I had put a compound inequality instead of splitting it up into two inequalities with a && in the middle, so the program kept printing out either all of the digits or all of the digits except for the one that was actually correct. Thankfully Bobby split up my compound inequality and the program started working yay!</h5>
+                        <h5 class="range"><img src="wk6media/voltageDivider.jpg" alt="final setup for voltage divider 'sensor'" id="headshot" style="float:left">The next component of this mini project was to add an output device. I decided that I wanted to add a blinking LED where the number of blinks would be equal to the number that the analog pin was reading. I used the Light class code from lab from week 5 as a starting point and then changed it so that the light would blink a certain number of times. I did not use any delay functions, but I do not think I really used the most efficient timer (but at this point I was more focused on just getting the program to work rather than making it more efficient). I got the light to blink the number of times that I wanted, but it would only work with the voltage divider that the pin started in when the program uploaded to the Arduino because when I would move the wire to a different voltage divider, the light would start to blink the number of times corresponding to the voltage reading in the air which would mess up the total number of blinks once the wire was actually connected to a different voltage divider. To fix this, I had to add a button so that you could first move the wire and then press the button before the blinking code would be executed. I also made it so that if the led would only blink if the wire location had changed since the last time that the led blinked (so even if someone took the analog wire out and then plugged it into the same spot, the led would not blink). I am super excited about how it all turned out!!! The video starts with the analog pin wire in the voltage divider corresponding to the number 7, then 4, and finally 1.</h5>
+                        <h5 class="range" style="text-align:center"><video style="max-width:100%; height:auto; margin: 10px"controls autoplay muted><source src="wk6media/voltageDivider.mp4" type="video/mp4"></video></h5>
+                        <h5 class="range" style="text-align:center"><img src="wk6media/voltageDividerCircuit.jpg" alt="circuit diagram for voltage dividers with led and button" style="max-width: 100%; height:auto"></h5>
+                        <h5 class="range">
+                            <pre>
+                                <code class="language-arduino">
+class Button{
+  // Member variables
+  int buttonPin;
+  int buttonState;
+
+  // Constructor
+  public:
+  Button(int pin){
+    buttonPin = pin;
+    pinMode(buttonPin, INPUT_PULLUP);
+
+    buttonState = HIGH;
+  }
+
+  int Update(){
+    buttonState = digitalRead(buttonPin);
+    return buttonState;
+  }
+};
+
+class Light{
+  // Member variables
+  int ledPin;
+  int ledState;
+  int blinkTime;
+  unsigned long prevMillis;
+
+  // Constructor
+  public:
+  Light(int pin, int time){
+    ledPin = pin;
+    blinkTime = time;
+    pinMode(ledPin, OUTPUT);
+    ledState = LOW;
+  }
+
+  void Blink(int numBlinks){
+    for(int i=0; i <= numBlinks; i++){
+      while(millis() - prevMillis <= blinkTime){  
+        digitalWrite(ledPin, HIGH);
+      }
+
+      prevMillis = millis();
+
+      while(millis() - prevMillis <= blinkTime){
+        digitalWrite(ledPin, LOW);
+      }
+
+      prevMillis = millis();
+    }
+    
+  }
+};
+
+Light led1(8, 500);
+Button button1(7);
+
+int locationPin1 = A0; // analog pin for reading values
+float sensorVal1;
+int location1Val;
+int prevLocVal;
+int interval = 100;
+unsigned long previousMillis;
+
+float lowerBound;
+float upperBound;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(locationPin1, INPUT);
+}
+
+void loop() {
+  if(millis() - previousMillis > interval){
+    previousMillis = millis();
+    sensorVal1 = analogRead(locationPin1) * 5.0 / 1023.0; //read output from first location and convert to volts
+    
+    // create loop where each iteration checks next number range of output values
+    for(float i=0.0; i<10; i = i + 1.0){
+
+      // set boundaries so that each range is 0.5V
+      lowerBound = i * 0.5; 
+      upperBound = (i+1.0) * 0.5;
+
+      // check if output voltage is within this range
+      if(lowerBound < sensorVal1 && sensorVal1 < upperBound){
+        location1Val = i;
+        Serial.print("Location 1 number tile: ");
+        Serial.println(location1Val);
+
+      }
+    }
+
+    if(button1.Update() == LOW && location1Val != prevLocVal){
+      prevLocVal = location1Val;
+      led1.Blink(location1Val);
+    } 
+  }
+}
+                                </code>
+                            </pre>
+                        </h5>
+                    </div>
+                    <div id="finaltab3" class="verticaltabcontent">
+                        <h3>CAD Files for CNC Week</h3>
+                        <h5 class="range">I am very bad at making decisions, so I had a very hard time deciding what to design for this. I spent waaaaaay too much time thinking about it, so to make up for the time loss, I landed on something very simple. I made a 2D design of a rectangle with the words "stay away" on it so I can have a little sign to put either next to my bed or on my desk :))) (or my little sister might steal it later who knows). I am not entirely sure how the CNC machine is going to work, so I wanted to make sure I chose something that was simple enough that nothing would go tooooo wrong...<a download href="./wk6media/stayawayCNC.f3d" class="tertiary-colored">download fusion file</a></h5>
+                        <h5 class="range" style="text-align:center"><img src="wk6media/stayaway.jpg" alt="2D stay away sign" style="max-width: 100%; height:auto"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, id, type) {
+            var i, tabcontent, tablinks, hgt;
+            if (type == "horizontal"){
+                tabcontent = document.getElementsByClassName("tabcontent");
+                tablinks = document.getElementsByClassName("tablinks");
+                hgt = "75%";
+            } else if (type == "vertical"){
+                tabcontent = document.getElementsByClassName("verticaltabcontent");
+                tablinks = document.getElementsByClassName("verticaltablinks");
+                hgt = "87.5%";
+            }
+
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.opacity = "0";
+                tabcontent[i].style.height = "0";
+                tabcontent[i].style.position = "absolute";
+                tabcontent[i].style.transform = "translateY(-3px)";
+            }
+
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            var selectedTab = document.getElementById(id);
+            selectedTab.style.height = hgt;
+            selectedTab.style.position = "relative";
+            selectedTab.style.opacity = "1";
+            selectedTab.style.transform = "translateY(0px)";
+            selectedTab.style.transition = "opacity 0.5s ease-in, transform 0.8s ease-in-out";
+            
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+
+</html>

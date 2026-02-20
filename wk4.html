@@ -1,0 +1,166 @@
+<html>
+<head>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arduino-light.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <title>PS70: Intro to Digital Fabrication</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="js/customComponents.js"></script>
+</head>
+
+<body>
+    <div id="navbar">
+        <nav>
+            <a class="secondary-colored" href="./index.html"><span class="primary-colored">01. </span>Home</a>
+            <a class="secondary-colored" href="./about.html"><span class="primary-colored">02. </span>About</a>
+            <a class="secondary-colored" href="./finalProject.html"><span class="primary-colored">03. </span>Final Project</a>
+        </nav>
+    </div>
+    <div class="section">
+        <div id="final">
+            <h2><span class="primary-colored">Week 4. </span><span class="secondary-colored">Microcontroller Programming</span></h2>
+            <div class="section-content">
+                <div id="projectDetails">
+                    <div class="vertical-tab">
+                        <button class="verticaltablinks active"
+                            onclick="openTab(event, 'finaltab1', 'vertical')"
+                            style="border-top-left-radius: 10px;">Arduino</button>
+                        <button class="verticaltablinks"
+                            onclick="openTab(event, 'finaltab2', 'vertical')">Circuit</button>
+                        <button class="verticaltablinks"
+                            onclick="openTab(event, 'finaltab3', 'vertical')">Code</button>
+                        <button class="verticaltablinks"
+                            onclick="openTab(event, 'finaltab4', 'vertical')">Video!</button>
+                    </div>
+                    <div id="finaltab1" class="verticaltabcontent default-focus" style="display: block; opacity: 1; position: relative;">
+                        <h3>Arduino Project</h3>
+                        <h5 class="range">I wasn't sure what exactly I wanted to make for this week since I didn't feel like remaking my toaster from last week (I think I may have been slightly traumatized by the amount of time I spent on it). However, I still wanted to stay with the toast theme (no, my obsession is not over), so I ultimately decided to try to make something that used a slide switch to change between a happy toast/green LED and a sad toast/red LED. This would require coding a simultaneous motor movement to a certain number of degrees (since I envisioned a toast with a smile displayed on one side and then 180 degree turn to a sad face on the other) and LED flashing, and I thought it would also be useful as a very preliminary mechanism for the correct/incorrect indicator for my final project.</h5>
+                        <h5 class="range"><img src="wk4media/arduino1.jpg" alt="completed circuit" id="headshot" style="float: right">I decided to start with the arduino circuit and coding and then to create the outer box/toast decoration afterwards. For the circuit, I used <a target="_blank" href="https://nathanmelenbrink.github.io/lab/arduino/Arduino%20Programming%20Fundamentals.pdf" class="tertiary-colored">Kassia's slides</a> on arduino programming fundamentals, the corresponding <a target="_blank" href="https://nathanmelenbrink.github.io/lab/arduino/PS70_ArduinoBasicsWiringDiagrams.pdf" class="tertiary-colored">arduino board diagrams</a>, the <a target="_blank" href="https://nathanmelenbrink.github.io/lab/output/servo/index.html" class="tertiary-colored">servo motor workshop</a> from class, and the <a target="_blank" href="https://learn.adafruit.com/multi-tasking-the-arduino-part-1/overview" class="tertiary-colored">multitasking arduino</a> linked on the PS70 website. I started with the "two at once" LED setup from the multitasking arduino page and tried to combine this with the button control LED setup from Kassia's lab using a switch instead of a button. I tried to use good coding practices by creating a separate void function that generically turned an LED on or off, but in the end, it took fewer lines of code to just use the digitalWrite function for each LED within the normal loop section of the code. I also had to ask Bobby how the switch worked since the switch has three pins (and the button we used in lab only has two), so I learned that the middle pin should connect to an input pin on the arduino to read the position of the switch and that the two outer pins should be connected to 5V and GND. I used the INPUT_PULLUP setting to reduce the number of resistors that I had to use in the breadboard.</h5> 
+                        <h5 class="range"><video id="smalljpg" style="float:left" controls autoplay muted><source src="wk4media/arduinoMech.mp4" type="video/mp4"></video>Once I got the LED switch part of the circuit working (green lights up/red turns off when the switch is in one position and then red lights up/green turns off when the switch is moved to the other position), I moved on to adding the simultaneous movement of a servo motor. Again, I pulled various parts of code from the above links and tried to create different functions for the repeating pattern of moving 180 degrees. I originally made three functions for this--one that controlled the timing of the movement (moveServo), one that would be used to move from 0 to 180 degrees, and one that would be used to move in the opposite direction--but this resulted in some very weird extra non-stop motor movement when I just wanted the motor to move one time per change in switch position. With Bobby's help fixing my code, I finally got the motor to do what I wanted by just putting degree numbers directly into the moveServo function that I created rather than trying to pass position information through multiple functions. I made sure to avoid using the delay function by using the millis() function so that there would be no issues with running things simultaneously.</h5>
+                        <h5 class="range"><video id="smalljpg" style="float:right" controls autoplay muted><source src="wk4media/arduinoBox.mp4" type="video/mp4"></video>The next step was to create the decorative box and toast to make the motor movement a little more interesting. I wanted to make a relatively small container (70mm cube) that I could put the servo motor in and have a stick poking out with the toast on the top. I also wanted to design something where everything could be easily taken apart so that I could use the same motor on a different project later if I wanted to.</h5> 
+                        <h5 class="range"><img src="wk4media/arduino2.jpg" alt="servo motor inserted into box" id="smalljpg" style="float: left">I used calipers to measure the dimensions of the motor and put a cutout on the bottom surface of the box so that the servo could be inserted and removed with the center of rotation at the center of the box, and I also put a circle cutout on one of the box walls so that the servo wires could go through from the inside to the outside of the box. I designed the lid to be removable from the box (again so that I could easily take everything apart and put everything back together if I wanted to), and I put an arc cutout a little more than 180 degrees so that the pole could move around (you can see the lid being cut out in the lasercutter video above).</h5>
+                        <h5 class="range"><img src="wk4media/arduino3.jpg" alt="scored box (bad)" id="smalljpg" style="float: right">I originally designed the box on Fusion with the intent of scoring the bottom edges and having everything be held together by the lid, but I guess I had some extra lines in my sketch so the lasercutter ended up cutting through everything. Turns out this was better anyways because when I did it again with the scoring, the ridges in the cardboard made it so that when I folded the sides up, the top edges did not line up so I ended up just hot gluing the first fully cut print as the box.</h5>
+                        <h5 class="range"><img src="wk4media/arduino4.jpg" alt="discs to connect to servo" id="smalljpg" style="float: left">I also originally was going to use a round wooden dowel to connect the toast to the motor, but I ended up used a 3mm square wooden stick instead so that I could make the toast removable from the stick and the stick removable from the motor disc without allowing anything to rotate extra. I lasercut discs with square holes for the stick and hot glued them together and to the little plastic piece that connects to the servo motor so that there was a relatively stable way to insert the wooden stick into the box (without hot glue) and keep it from any extra rotation when the servo motor moved.</h5>
+                        <h5 class="range"><img src="wk4media/arduino5.jpg" alt="toast inner layer" id="smalljpg" style="float: right">I also did not use hot glue to secure the toast onto the pole so I could still remove the lid off of the box without pulling the whole thing apart (if the toast was not removable, the lid would have to stay on because the toast too fat to fit through the cutout for the pole movement). After lasercutting the two toasts with faces, I lasercut out a third slice to be glued in between with a rectangular cutout at the bottom so that when they were all glued together, it would create a square hole fo the square stick. </h5>
+                        <h5 class="range"><img src="wk4media/arduino6.jpg" alt="cardboard flutes in line with hole" id="smalljpg" style="float: left">Unfortunately, I did not account for the fact that if the toast is cut so that the rectangular cutout is parallel to the fluting of the cardboard, the hole is actually quite large and not so square anymore. I think it wasn't a big enough deal, though, to waste any more cardboard on it and I decided to just deal with the slightly more flimsy connection and occasional rotation of the toast (if my words are actually making zero sense, this is what I'm talking about aka the little extra rotation of the toast around the pole at the end here:)</h5>
+                        <h5 style="text-align: center"><video id="headshot"controls autoplay muted><source src="wk4media/arduinoNo.mp4" type="video/mp4"></video></h5>
+                        <h5 class="range">At the very end, I changed the degrees of rotation in the arduino code slightly so that the servo motor rotation would be a bit less than 180 degrees (switch between 10 and 180, which means the pole traces a 170 degree arc) just to make sure that there was enough space for the pole to rotate freely with the lid on. Overall, I am very happy with how it turned out, especially because I feel like the whole process was a lot more efficient this week! Yay! And it even somewhat relates to a part of my final project :D</h5>
+                    </div>
+                    <div id="finaltab2" class="verticaltabcontent">
+                        <h3>Circuit Diagram</h3>
+                        <h5 class="range">(hand-drawn on Notability ipad app using random generic images of breadboard, arduino, and servo motor from google)<img src="wk4media/arduinoCircuit.jpg" alt="circuit diagram"  style="max-width:100%; height:auto; margin: 10px"></h5>
+                    </div>
+                    <div id="finaltab3" class="verticaltabcontent">
+                        <h3>Arduino Project Code</h3>
+                        <h5 class="range"> (I used the instructions on the PS70 site to display my arduino code here:)
+                            <pre>
+                                <code class="language-arduino">
+#include &#60Servo.h&#62
+
+Servo myservo;  // create servo object to control a servo
+
+int servoPin = 2;
+int ledPinR = 8;
+int ledPinG = 13;
+int switchPin = 6;
+
+int ledStateR = LOW;
+int ledStateG = HIGH;
+int switchState = 0;
+
+unsigned long lastUpdate;
+long interval = 150; // variable for servo speed
+
+void setup() {
+  Serial.begin(9600);
+  myservo.attach(servoPin);  // attaches the servo on pin 2 to the servo object
+  pinMode(ledPinR, OUTPUT); // set red LED pin as output
+  pinMode(ledPinG, OUTPUT); // set green LED pin as output
+  pinMode(switchPin, INPUT_PULLUP); // set switch pin as input pullup
+}
+
+void loop() {
+  // update status of switch
+  switchState = digitalRead(switchPin);
+  Serial.println(switchState);
+
+  // check status of switch
+  if(switchState == 1)
+  {
+    digitalWrite(ledPinR, HIGH);
+    digitalWrite(ledPinG, LOW);
+    // moveToOne(servoPos);
+    moveServo(180);
+  }
+  else
+  {
+    digitalWrite(ledPinR, LOW);
+    digitalWrite(ledPinG, HIGH);
+    // moveToZero(servoPos);
+    moveServo(10);
+  }
+}
+
+
+// move servo position
+void moveServo(int position) {
+  if((millis() - lastUpdate) > interval)
+  {
+    lastUpdate = millis(); // updates previousMillis to be current time
+    myservo.write(position);    // tell servo to go to position in variable 'pos'
+  }
+}
+                                </code>
+                            </pre>
+                        </h5>
+                    </div>
+                    <div id="finaltab4" class="verticaltabcontent">
+                        <h3>Final Video!</h3>
+                        <h5 class="range"><video style="max-width:100%; height:auto; margin: 10px"controls autoplay muted><source src="wk4media/arduinoFinal.mp4" type="video/mp4"></video></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, id, type) {
+            var i, tabcontent, tablinks, hgt;
+            if (type == "horizontal"){
+                tabcontent = document.getElementsByClassName("tabcontent");
+                tablinks = document.getElementsByClassName("tablinks");
+                hgt = "75%";
+            } else if (type == "vertical"){
+                tabcontent = document.getElementsByClassName("verticaltabcontent");
+                tablinks = document.getElementsByClassName("verticaltablinks");
+                hgt = "87.5%";
+            }
+
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.opacity = "0";
+                tabcontent[i].style.height = "0";
+                tabcontent[i].style.position = "absolute";
+                tabcontent[i].style.transform = "translateY(-3px)";
+            }
+
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            var selectedTab = document.getElementById(id);
+            selectedTab.style.height = hgt;
+            selectedTab.style.position = "relative";
+            selectedTab.style.opacity = "1";
+            selectedTab.style.transform = "translateY(0px)";
+            selectedTab.style.transition = "opacity 0.5s ease-in, transform 0.8s ease-in-out";
+            
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+
+</html>

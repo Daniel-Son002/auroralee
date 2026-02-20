@@ -1,0 +1,553 @@
+:root {
+    --background-color: #ffffff;
+    --background-gradient: linear-gradient(155deg, rgba(1, 2, 10, 1) 0%, rgba(35, 35, 55, 1) 12%, rgba(44, 44, 73, 1) 49%, rgba(26, 28, 55, 1) 94%, rgba(7, 7, 18, 1) 99%);
+    --primary: #b3cba8;
+    --secondary: #3a3b35;
+    --tertiary: #688778;
+    --quaternary: #927e77;
+    --light-grey: #e5e5e5;
+    --light-green: #eef3ef;
+    --dark-green: #4d6c5c;
+    --matcha-grey: #bac2b8;
+    --faded-grey: #b2b2af;
+    --beige: #f7eeef;
+    --hover-color: #b3cba8;
+    --navy-shadow: rgba(2, 12, 27, 0.721);
+    --code-background: #1e1e1e;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-mono: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+    --fz-xxs: 12px;
+    --fz-xs: 13px;
+    --fz-sm: 14px;
+    --fz-md: 16px;
+    --fz-lg: 18px;
+    --fz-xl: 20px;
+    --fz-xxl: 22px;
+    --navbar-height: 75px;
+    --navy-box-shadow: 2px 5px 20px -10px var(--navy-shadow);
+    --transition: all 0.25 scubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+body {
+    background: var(--background-color);
+    font-family: var(--font-sans);
+    font-size: var(--fz-md);
+    letter-spacing: 1px;
+    line-height: 1.3;
+    margin: 0px;
+    padding: 0px;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    color: #a5b0d1;
+    font-size: 20px;
+    padding: 0px;
+}
+
+h1 {
+    color: var(--primary);
+    font-size: 50px;
+    margin: 0px;
+    padding: 5px;
+}
+
+h2,
+h3,
+h4,
+h5 {
+    color: var(--secondary);
+    margin: 0;
+    padding: 7.5px;
+
+}
+
+#navbar {
+    align-items: center;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, .9);
+    display: flex;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    height: var(--navbar-height);
+    justify-content: right;
+    position: fixed;
+    top: 0;
+    transition: var(--transition);
+    width: 100%;
+    z-index: 2;
+}
+
+nav {
+    margin: 30px;
+}
+
+nav a {
+    margin: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--hover-color);
+}
+
+.contact-icon {
+    color: var(--quaternary);
+    height: 25px;
+    width: 25px;
+}
+
+.contact-icon:hover {
+    color: var(--hover-color);
+    padding-bottom: 5px;
+    transition: .1s 0s;
+}
+
+ul {
+    list-style: none;
+}
+
+.primary-colored {
+    color: var(--primary);
+}
+
+.secondary-colored {
+    color: var(--secondary);
+}
+
+.tertiary-colored {
+    color: var(--tertiary);
+}
+
+.quaternary-colored {
+    color: var(--quaternary);
+}
+
+.primary-button {
+    background-color: var(--primary);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 .5px .5px var(--primary);
+    color: var(--background-color);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: var(--fz-md);
+    font-weight: 600;
+    padding: 10px 17.5px;
+}
+
+.primary-button:hover {
+    opacity: .7;
+}
+
+#contact {
+    bottom: 0;
+    position: fixed;
+    right: 100;
+    z-index: 2;
+}
+
+#contact ul li {
+    align-items: center;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+
+}
+
+#contact ul::after {
+    content: "";
+    display: block;
+    width: 1.5px;
+    height: 100px;
+    margin: 0px auto;
+    margin-top: 30px;
+    background-color: var(--quaternary);
+}
+
+.section {
+    margin-top: var(--navbar-height);
+    min-height: 90vh;
+}
+
+.section-content {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.language {
+    background-color: var(--light-green);
+    border-radius: 5px;
+    color: var(--dark-green);
+    font-size: var(--fz-xxs);
+    font-weight: 500;
+    margin: 5px;
+    padding: 5px 10px;
+}
+
+/* Styling tabs */
+/* Style the tab */
+.tab {
+    background-color: var(--light-green);
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+}
+
+.vertical-tab {
+    background-color: var(--light-green);
+    border-top-left-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    float: left;
+    height: 100%;
+    width: max-content;
+}
+
+/* Style the buttons inside the tab */
+.tab button, .vertical-tab button {
+    background-color: inherit;
+    border: none;
+    color: var(--quaternary);
+    cursor: pointer;
+    float: left;
+    font-size: var(--fz-sm);
+    font-weight: 550;
+    letter-spacing: 1.5px;
+    outline: none;
+    padding: 14px 25px;
+    text-align: center;
+    transition: .3s;
+    width: 100px;
+}
+
+.vertical-tab button {
+    text-align: left;
+    width: 127.5px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover, .vertical-tab button:hover {
+    background-color: var(--light-green);
+    color: var(--tertiary);
+    font-weight: 550;
+}
+
+/* Create an active/current tablink class */
+.tab button.active, .vertical-tab button.active {
+    background-color: var(--background-color);
+    color: var(--tertiary);
+    font-weight: 550;
+}
+
+
+/* Style the tab content */
+.tabcontent, .verticaltabcontent {
+    color: var(--secondary);
+    display: block;
+    height: 0;
+    left: 0;
+    margin: 5px;
+    opacity: 0;
+    overflow-y: auto;
+    padding: 20px 50px;
+    position: absolute;
+    top: 0;
+}
+
+.default-focus, .default-focus-vertical {
+    opacity: 1;
+    position: relative;
+    height: 75%;
+}
+
+.default-focus-vertical {
+    height: 87.5%;
+}
+
+
+.tabcontent li, .verticaltabcontent li {
+    align-items: stretch;
+    display: flex;
+    padding: 5px;
+}
+
+.tabcontent li div, .verticaltabcontent li div {
+    font-size: var(--fz-xs);
+    height: 100%;
+}
+
+.tabcontent h4 {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+    font-size: var(--fz-sm);
+    margin: 5px 0 0 0;
+    padding: 5px 15px;
+}
+
+.tabcontent ul, .verticaltabcontent ul {
+    margin: 10px;
+    margin-top: 0;
+    padding: 0;
+}
+
+/* css styling for scrollbar */
+/* width */
+::-webkit-scrollbar {
+    height: 7.5px;
+    width: 7.5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: var(--background-color);
+    border-radius: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--matcha-grey);
+    border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--tertiary);
+}
+
+/* css styling for the intro section */
+
+#intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10% 15%;
+}
+
+#intro-line {
+    font-family: var(--font-mono);
+    font-size: clamp(var(--fz-md), 7vw, var(--fz-xxl));
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+#name {
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret 1s step-end infinite;
+    border-right: .1em solid var(--primary);
+    /* The typwriter cursor */
+    color: var(--secondary);
+    display: inline-block;
+    font-size: clamp(30px, 7vw, 70px);
+    letter-spacing: .05em;
+    margin: 0;
+    padding: 0 !important;
+    overflow: hidden;
+    /* Ensures the content is not revealed until the animation */
+    white-space: nowrap;
+    /* Keeps the content on a single line */
+}
+
+#description {
+    color: var(--quaternary);
+    font-size: var(--fz-lg);
+    font-weight: 200px;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    max-width: 540px;
+    margin-bottom: 45px;
+}
+
+/* The typing effect */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 6.5em
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: var(--primary);
+    }
+}
+
+/* css styling for the about section */
+#about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7.5% 15%;
+}
+
+#headshot {
+    border-radius: 7.5px;
+    box-shadow: var(--navy-box-shadow);
+    max-height: 275px;
+    margin: 10px;
+    object-fit: contain;
+}
+
+#smalljpg {
+    border-radius: 7.5px;
+    box-shadow: var(--navy-box-shadow);
+    max-height: 200px;
+    margin: 10px;
+    object-fit: contain;
+}
+
+#smallerjpg {
+    border-radius: 7.5px;
+    box-shadow: var(--navy-box-shadow);
+    max-height: 150px;
+    margin: 10px;
+    object-fit: contain;
+}
+
+
+/* colors for about section */
+.code-block {
+    background-color: var(--matcha-grey);
+    border-radius: 10px;
+    border-top: 27.5px solid var(--light-grey);
+    box-shadow: var(--navy-box-shadow);
+    font-family: -apple-system, BlinkMacSystemFont, 'Consolas', 'Monaco', 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New';
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 1.8;
+    margin: 25px;
+    max-height: 340px;
+    overflow-y: auto;
+    padding: 30px 50px;
+    width: 60%;
+}
+
+.code-block span {
+    margin: 0;
+    padding: 0;
+}
+
+.code-white {
+    color: var(--secondary);
+}
+
+/* css styling for the weekly assignments section */
+#weekly {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7.5% 15%;
+}
+
+#weekTabs {
+    border-radius: 10px;
+    box-shadow: var(--navy-box-shadow);
+    height: 60vh;
+    margin: 25px;
+    max-height: 800px;
+    width: 90%;
+}
+
+.range {
+    color: var(--quaternary);
+    font-weight: 500;
+    margin: 0 0 10px 7.5px;
+    padding: 0;
+}
+
+.school-name {
+    color: var(--tertiary);
+    margin: 0;
+    padding: 5px;
+}
+
+.caption {
+    color: var(--dark-green);
+    font-size: var(--fz-xxs);
+    font-weight: 200;
+    margin: 5px;
+    padding: 5px 10px;
+}
+
+/* css styling for the final project section */
+#final {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7.5% 15%;
+}
+
+#projectDetails {
+    border-radius: 10px;
+    box-shadow: var(--navy-box-shadow);
+    height: 60vh;
+    margin: 25px;
+    max-height: 800px;
+    width: 100%;
+}
+
+#projectDetails h3 {
+    font-weight: 650;
+}
+
+#projectDetails a {
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 0 var(--light-green);
+    display: inline-block;
+    font-weight: 650;
+    margin: 0 -.25rem;
+	padding: 0 .25rem;
+    transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
+}
+
+#projectDetails a:hover {
+  box-shadow: inset 200px 0 0 0 var(--light-green);
+  color: var(--dark-green);
+}
+
+#projectDetails ul li {
+    font-size: var(--fz-xs);
+}
+
+
+
+/* css styling for smaller screens */
+@media only screen and (max-width: 600px) {
+    #intro-line {
+        font-size: clamp(var(--fz-sm), 7vw, var(--fz-lg));
+    }
+    #name {
+        font-size: clamp(18px, 6vw, 70px);
+    }
+    #description {
+        font-size: var(--fz-sm);
+        margin-bottom: 15px;
+    }
+    #navbar{
+        display: none;
+    }
+    .section {
+        margin-top: 0;
+        min-height: 90vh;
+    }
+  }
