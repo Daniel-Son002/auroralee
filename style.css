@@ -106,7 +106,7 @@ a:hover {
   /* Allow navbar to grow taller if nav links wrap on small screens */
   min-height: var(--navbar-height);
   height: auto;
-  padding: 12px 25px;
+  padding: 12px 20px;
 
   background-color: rgba(255,255,255,0.9);
   backdrop-filter: blur(10px);
@@ -329,7 +329,7 @@ img {
 
   /* Extra top padding on mobile since the navbar is taller when stacked */
   body {
-    padding-top: calc(var(--navbar-height) + 24px);
+    padding-top: calc(var(--navbar-height) + 30px);
   }
 
   p {
