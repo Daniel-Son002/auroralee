@@ -300,6 +300,15 @@ ul {
     padding: 0;
 }
 
+.contact-item {
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 10px;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
 /* css styling for scrollbar */
 /* width */
 ::-webkit-scrollbar {
@@ -527,6 +536,63 @@ ul {
 
 #projectDetails ul li {
     font-size: var(--fz-xs);
+}
+/* Contact page specific layout */
+.contact-section {
+
+    margin-top: var(--navbar-height);
+    min-height: 90vh;
+
+    display: flex;
+    justify-content: center;
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Contact form container */
+#contact-form {
+
+    width: 100%;
+    max-width: 600px;
+
+    margin-top: 120px;
+    padding: 40px;
+
+    background-color: #fafafa;
+
+    border-radius: 12px;
+    box-shadow: var(--navy-box-shadow);
+
+    box-sizing: border-box;
+}
+
+/* Contact inputs */
+#contact-name,
+#contact-email,
+#contact-message {
+
+    width: 100%;
+
+    padding: 10px;
+    margin-top: 5px;
+
+    border-radius: 5px;
+    border: 1px solid var(--light-grey);
+
+    font-family: var(--font-sans);
+    font-size: var(--fz-md);
+
+    animation: none;
+    transition: none;
+
+    box-sizing: border-box;
+}
+
+/* Contact heading alignment */
+#contact-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
 }
 
 
