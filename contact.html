@@ -6,22 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <script src="js/customComponents.js" defer></script>
+  <!-- <script src="js/customComponents.js" defer></script> -->
 
-  <!--
-    reCAPTCHA v3 — invisible, no checkbox shown to users.
-    Replace YOUR_RECAPTCHA_SITE_KEY with your Site Key from:
-    https://www.google.com/recaptcha/admin
-    Make sure you also paste your SECRET key into:
-    Formspree dashboard → your form → Settings → reCAPTCHA
-  -->
-  <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfV2nIsAAAAABFplwt3fLMGQo2LLrxXhNHPaJrh" async defer></script>
 
   <style>
-
-    /* ===========================
-       Contact Page Shell
-    =========================== */
 
     .contact-page {
       min-height: calc(100vh - var(--navbar-height));
@@ -32,10 +21,6 @@
       background: linear-gradient(135deg, var(--light-green) 0%, #fff 60%);
     }
 
-    /* ===========================
-       Contact Card
-    =========================== */
-
     .contact-card {
       background: #fff;
       border-radius: 16px;
@@ -45,7 +30,6 @@
       max-width: 580px;
     }
 
-    /* Decorative gradient bar at the top of the card */
     .contact-card::before {
       content: '';
       display: block;
@@ -54,10 +38,6 @@
       margin: calc(-1 * clamp(32px, 5vw, 56px)) calc(-1 * clamp(28px, 5vw, 52px)) 32px;
       border-radius: 16px 16px 0 0;
     }
-
-    /* ===========================
-       Heading
-    =========================== */
 
     .contact-heading {
       margin-bottom: 6px;
@@ -73,10 +53,6 @@
       margin: 0 0 32px;
       max-width: 100%;
     }
-
-    /* ===========================
-       Form Grid
-    =========================== */
 
     .contact-form {
       display: grid;
@@ -134,7 +110,6 @@
       line-height: 1.5;
     }
 
-    /* Field error state */
     .form-group input.error,
     .form-group textarea.error {
       border-color: #e07070;
@@ -152,11 +127,7 @@
       display: block;
     }
 
-    /* ===========================
-       reCAPTCHA legal note
-       Required by Google's terms when hiding the badge
-    =========================== */
-
+    /* Required by Google's ToS when hiding the badge */
     .recaptcha-note {
       grid-column: 1 / -1;
       font-size: 11px;
@@ -170,14 +141,10 @@
       text-decoration: underline;
     }
 
-    /* Hide the floating reCAPTCHA badge (legal only if note above is shown) */
+    /* Hide the floating reCAPTCHA badge — legal only with the note above present */
     .grecaptcha-badge {
       visibility: hidden !important;
     }
-
-    /* ===========================
-       Submit Button
-    =========================== */
 
     .submit-row {
       grid-column: 1 / -1;
@@ -207,7 +174,6 @@
     .contact-submit-btn:active:not(:disabled) { transform: scale(0.985); }
     .contact-submit-btn:disabled { opacity: 0.65; cursor: not-allowed; }
 
-    /* Spinner inside button while sending */
     .btn-spinner {
       width: 16px;
       height: 16px;
@@ -223,10 +189,6 @@
     .contact-submit-btn.loading .btn-label   { display: none; }
 
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ===========================
-       Status Messages
-    =========================== */
 
     .form-status {
       display: none;
@@ -255,7 +217,6 @@
     .form-status.error-state .status-icon::after  { content: '⚠️'; }
     .form-status.success-state .status-icon::after { content: '✉️'; }
 
-    /* Try-again button inside error state */
     .try-again-btn {
       display: inline-block;
       margin-top: 16px;
@@ -273,15 +234,11 @@
 
     .try-again-btn:hover { background: var(--tertiary); }
 
-    /* ===========================
-       Mobile
-    =========================== */
+    /* Debug box — visible in browser console only, not on page */
+    #debugInfo { display: none; }
 
     @media (max-width: 768px) {
-      .contact-form {
-        grid-template-columns: 1fr;
-      }
-
+      .contact-form { grid-template-columns: 1fr; }
       .contact-page {
         padding-top: clamp(48px, 8vw, 80px);
         align-items: flex-start;
@@ -340,7 +297,7 @@
           <span class="field-error" id="messageError">Please write a message.</span>
         </div>
 
-        <!-- Required by Google's terms when the reCAPTCHA badge is hidden -->
+        <!-- Required by Google's ToS when the floating badge is hidden -->
         <p class="recaptcha-note">
           This site is protected by reCAPTCHA and the Google
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and
@@ -367,7 +324,7 @@
       <div class="form-status error-state" id="errorMessage">
         <div class="status-icon"></div>
         <h3>Something went wrong</h3>
-        <p>Your message couldn't be sent. Please try again or email me directly.</p>
+        <p id="errorDetail">Your message couldn't be sent. Please try again or email me directly.</p>
         <button class="try-again-btn" id="tryAgainBtn">Try again</button>
       </div>
 
@@ -394,23 +351,16 @@
     });
 
     // ── Config ─────────────────────────────────────────────────────────────────
-    //
-    //  FORMSPREE_ENDPOINT  : already set to your form ID (xnjbgajy) ✓
-    //  RECAPTCHA_SITE_KEY  : replace with your Site Key from
-    //                        https://www.google.com/recaptcha/admin
-    //                        Also replace it in the <script src> tag in <head>.
-    //
-    //  Formspree side: Form → Settings → reCAPTCHA → paste your SECRET key.
-    //
     const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xnjbgajy';
-    const RECAPTCHA_SITE_KEY = '6Leu13IsAAAAAPj52g51sYuuSOwAQGAgvLXyRKbv';
+    const RECAPTCHA_SITE_KEY = '6LfV2nIsAAAAABFplwt3fLMGQo2LLrxXhNHPaJrh';
 
     // ── DOM refs ───────────────────────────────────────────────────────────────
-    const form       = document.getElementById('contactForm');
-    const submitBtn  = document.getElementById('submitBtn');
-    const successMsg = document.getElementById('successMessage');
-    const errorMsg   = document.getElementById('errorMessage');
-    const tryAgain   = document.getElementById('tryAgainBtn');
+    const form        = document.getElementById('contactForm');
+    const submitBtn   = document.getElementById('submitBtn');
+    const successMsg  = document.getElementById('successMessage');
+    const errorMsg    = document.getElementById('errorMessage');
+    const errorDetail = document.getElementById('errorDetail');
+    const tryAgain    = document.getElementById('tryAgainBtn');
 
     // ── Field validation ───────────────────────────────────────────────────────
     const fields = {
@@ -432,7 +382,6 @@
       return valid;
     }
 
-    // Clear error styling as the user types
     for (const key in fields) {
       const { el, err } = fields[key];
       el.addEventListener('input', () => {
@@ -441,7 +390,7 @@
       });
     }
 
-    // ── Try again — restore form from error state ──────────────────────────────
+    // ── Try again ─────────────────────────────────────────────────────────────
     tryAgain.addEventListener('click', () => {
       errorMsg.style.display = 'none';
       form.style.display     = 'grid';
@@ -449,44 +398,48 @@
       submitBtn.classList.remove('loading');
     });
 
-    // ── Form submission with reCAPTCHA v3 ─────────────────────────────────────
-    //
-    //  Flow:
-    //  1. Validate fields locally.
-    //  2. Call grecaptcha.execute() — invisible, no challenge shown to user.
-    //  3. POST the token as "g-recaptcha-response" alongside form data.
-    //  4. Formspree verifies the token with Google server-side using your
-    //     secret key, then forwards the email if it passes.
-    //
+    // ── reCAPTCHA readiness promise ────────────────────────────────────────────
+    // Handles the case where the async reCAPTCHA script hasn't loaded yet
+    // when the user hits submit — polls every 100ms until ready.
+    function waitForRecaptcha() {
+      return new Promise((resolve, reject) => {
+        let attempts = 0;
+        const check = () => {
+          attempts++;
+          if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
+            grecaptcha.ready(resolve);
+          } else if (attempts > 50) {
+            reject(new Error('reCAPTCHA did not load after 5 seconds'));
+          } else {
+            setTimeout(check, 100);
+          }
+        };
+        check();
+      });
+    }
+
+    // ── Form submission ────────────────────────────────────────────────────────
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
-
       if (!validateAll()) return;
 
       submitBtn.disabled = true;
       submitBtn.classList.add('loading');
 
-      // Step 1: get reCAPTCHA token invisibly
+      // Step 1 — get reCAPTCHA v3 token (invisible to user)
       let recaptchaToken;
       try {
-        recaptchaToken = await new Promise((resolve, reject) => {
-          grecaptcha.ready(async () => {
-            try {
-              const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'contact_submit' });
-              resolve(token);
-            } catch (err) {
-              reject(err);
-            }
-          });
-        });
+        await waitForRecaptcha();
+        recaptchaToken = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'contact_submit' });
+        console.log('[reCAPTCHA] Token obtained, length:', recaptchaToken?.length);
       } catch (err) {
-        console.error('reCAPTCHA error:', err);
-        showError();
+        console.error('[reCAPTCHA] Failed:', err);
+        showError('reCAPTCHA failed to load. Please refresh and try again.');
         return;
       }
 
-      // Step 2: POST to Formspree with token included
-      // "g-recaptcha-response" is the exact field name Formspree expects
+      // Step 2 — build payload
+      // Formspree expects "g-recaptcha-response" to verify the token server-side.
       const payload = {
         firstName:              document.getElementById('firstName').value.trim(),
         lastName:               document.getElementById('lastName').value.trim(),
@@ -495,31 +448,54 @@
         'g-recaptcha-response': recaptchaToken,
       };
 
+      // Step 3 — POST to Formspree
       try {
+        console.log('[Formspree] POSTing to', FORMSPREE_ENDPOINT);
         const res = await fetch(FORMSPREE_ENDPOINT, {
           method:  'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body:    JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept':       'application/json',
+          },
+          body: JSON.stringify(payload),
         });
+
+        // Always parse the response body for debugging
+        let responseBody;
+        try {
+          responseBody = await res.json();
+        } catch (_) {
+          responseBody = { _raw: '(non-JSON response)' };
+        }
+
+        console.log('[Formspree] Status:', res.status);
+        console.log('[Formspree] Response body:', JSON.stringify(responseBody, null, 2));
 
         if (res.ok) {
           form.style.display       = 'none';
           successMsg.style.display = 'block';
         } else {
-          const body = await res.json().catch(() => ({}));
-          console.error('Formspree rejected submission:', res.status, body);
-          showError();
+          // Extract the human-readable Formspree error message if present
+          let detail = 'Submission rejected by server.';
+          if (responseBody.errors && responseBody.errors.length) {
+            detail = responseBody.errors.map(e => e.message || JSON.stringify(e)).join(' | ');
+          } else if (responseBody.error) {
+            detail = responseBody.error;
+          }
+          console.error('[Formspree] Rejection detail:', detail);
+          showError('Server error: ' + detail);
         }
       } catch (err) {
-        console.error('Network error:', err);
-        showError();
+        console.error('[Formspree] Network error:', err);
+        showError('Network error — please check your connection and try again.');
       }
     });
 
-    function showError() {
-      form.style.display     = 'none';
-      errorMsg.style.display = 'block';
-      submitBtn.disabled     = false;
+    function showError(detail) {
+      errorDetail.textContent = detail || "Your message couldn't be sent. Please try again.";
+      form.style.display      = 'none';
+      errorMsg.style.display  = 'block';
+      submitBtn.disabled      = false;
       submitBtn.classList.remove('loading');
     }
   </script>
