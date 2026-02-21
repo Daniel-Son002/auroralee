@@ -53,7 +53,7 @@ body {
   margin: 0;
   overflow-x: hidden;
 
-  /* Push all page content below the fixed navbar on every page */
+  /* Push all page content below the fixed navbar — always exactly one navbar height */
   padding-top: var(--navbar-height);
 }
 
@@ -91,38 +91,141 @@ a:hover {
 
 
 /* =========================
-   Navbar
+   Navbar — Desktop
 ========================= */
 
 #navbar {
   position: fixed;
   top: 0;
   width: 100%;
+  height: var(--navbar-height);
+  padding: 0 28px;
 
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 
-  /* Allow navbar to grow taller if nav links wrap on small screens */
-  min-height: var(--navbar-height);
-  height: auto;
-  padding: 12px 20px;
-
-  background-color: rgba(255,255,255,0.9);
+  background-color: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(179, 203, 168, 0.2);
 
   z-index: 1000;
 }
 
+.nav-logo {
+  font-weight: 700;
+  font-size: var(--fz-md);
+  color: var(--secondary);
+  letter-spacing: 0.3px;
+}
+
+.nav-logo span {
+  color: var(--primary);
+}
+
 nav {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
 }
 
 nav a {
   font-weight: 600;
   font-family: var(--font-mono);
+  font-size: var(--fz-sm);
+  color: var(--secondary);
+}
+
+nav a:hover {
+  color: var(--hover-color);
+}
+
+
+/* =========================
+   Hamburger Button
+   Hidden on desktop, shown on mobile
+========================= */
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 4px;
+  z-index: 1100;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--secondary);
+  border-radius: 2px;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+  transform-origin: center;
+}
+
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* =========================
+   Mobile Dropdown Menu
+========================= */
+
+@media (max-width: 768px) {
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  nav {
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    width: 100%;
+
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+
+    background-color: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--light-grey);
+    box-shadow: 0 8px 24px -4px var(--navy-shadow);
+
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  nav.nav-open {
+    max-height: 300px;
+  }
+
+  nav a {
+    width: 100%;
+    text-align: center;
+    padding: 16px 0;
+    font-size: var(--fz-md);
+    border-bottom: 1px solid var(--light-grey);
+  }
+
+  nav a:last-child {
+    border-bottom: none;
+  }
+
+  nav a:active {
+    background: var(--light-green);
+  }
+
 }
 
 
@@ -131,7 +234,6 @@ nav a {
 ========================= */
 
 .section {
-  /* No margin-top needed — body padding-top handles the navbar offset */
   padding: clamp(60px, 8vw, 100px) 20px;
   min-height: calc(100vh - var(--navbar-height));
 
@@ -285,14 +387,6 @@ img {
 
 @media (max-width: 768px) {
 
-  #navbar {
-    justify-content: center;
-  }
-
-  nav {
-    justify-content: center;
-  }
-
   .section {
     padding: 60px 20px;
   }
@@ -321,16 +415,6 @@ img {
 ========================= */
 
 @media (max-width: 480px) {
-
-  nav {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* Extra top padding on mobile since the navbar is taller when stacked */
-  body {
-    padding-top: calc(var(--navbar-height) + 30px);
-  }
 
   p {
     font-size: var(--fz-md);

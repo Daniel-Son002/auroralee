@@ -1,0 +1,44 @@
+<!--
+  ============================================================
+  COPY THIS NAVBAR into index.html and about.html,
+  replacing the existing <div id="navbar">...</div> block.
+
+  Also paste the <script> block just before </body>.
+  ============================================================
+-->
+
+<!-- NAVBAR HTML -->
+<div id="navbar">
+  <a class="nav-logo" href="./index.html"><span>✦</span> Aurora Lee</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav id="navMenu">
+    <a href="./index.html"><span class="primary-colored">01. </span>Home</a>
+    <a href="./about.html"><span class="primary-colored">02. </span>About</a>
+    <a href="./resume.html"><span class="primary-colored">03. </span>Resume</a>
+    <a href="./contact.html"><span class="primary-colored">04. </span>Contact</a>
+  </nav>
+</div>
+
+
+<!-- HAMBURGER SCRIPT — paste just before </body> -->
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navMenu   = document.getElementById('navMenu');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navMenu.classList.toggle('nav-open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close the menu automatically when any link is tapped
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('nav-open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', false);
+    });
+  });
+</script>

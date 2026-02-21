@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Aurora Lee — Resume</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="js/customComponents.js"></script>
+
+  <style>
+
+    /* ===========================
+       Page Shell
+    =========================== */
+
+    body {
+      padding-top: var(--navbar-height);
+      background: linear-gradient(160deg, var(--light-green) 0%, #fff 50%);
+      min-height: 100vh;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding-top: calc(var(--navbar-height) + 40px);
+      }
+    }
+
+    .resume-page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: clamp(40px, 6vw, 72px) 24px clamp(60px, 8vw, 100px);
+    }
+
+
+    /* ===========================
+       Page Header
+    =========================== */
+
+    .resume-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 48px;
+      padding-bottom: 28px;
+      border-bottom: 2px solid var(--light-grey);
+    }
+
+    .resume-header-left h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      color: var(--secondary);
+      margin-bottom: 6px;
+    }
+
+    .resume-header-left p {
+      font-size: var(--fz-md);
+      color: var(--quaternary);
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .resume-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Download / Email buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: var(--fz-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--secondary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--tertiary);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--secondary);
+      border: 1.5px solid var(--light-grey);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--secondary);
+    }
+
+    .btn .material-icons {
+      font-size: 18px;
+    }
+
+
+    /* ===========================
+       Upload Banner
+    =========================== */
+
+    /* Shown when no PDF has been linked yet — replace with a real link when ready */
+    .upload-notice {
+      background: var(--light-green);
+      border: 1.5px dashed var(--primary);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--dark-green);
+      font-size: var(--fz-sm);
+    }
+
+    .upload-notice .material-icons {
+      font-size: 28px;
+      color: var(--tertiary);
+      flex-shrink: 0;
+    }
+
+    .upload-notice strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: var(--fz-md);
+    }
+
+
+    /* ===========================
+       Section Titles
+    =========================== */
+
+    .resume-section {
+      margin-bottom: 44px;
+    }
+
+    .resume-section-title {
+      font-size: var(--fz-xs);
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .resume-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--light-grey);
+    }
+
+
+    /* ===========================
+       Entry Cards
+    =========================== */
+
+    .entry {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4px 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--light-grey);
+    }
+
+    .entry:last-child {
+      border-bottom: none;
+    }
+
+    .entry-title {
+      font-size: var(--fz-md);
+      font-weight: 700;
+      color: var(--secondary);
+      margin: 0;
+    }
+
+    .entry-subtitle {
+      font-size: var(--fz-sm);
+      color: var(--tertiary);
+      font-weight: 600;
+      grid-column: 1;
+      margin: 2px 0 0;
+    }
+
+    .entry-date {
+      font-size: var(--fz-xs);
+      color: var(--matcha-grey);
+      font-weight: 500;
+      white-space: nowrap;
+      grid-row: 1;
+      grid-column: 2;
+      align-self: start;
+      padding-top: 2px;
+    }
+
+    .entry-desc {
+      grid-column: 1 / -1;
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .entry-desc li {
+      position: relative;
+      padding-left: 16px;
+      font-size: var(--fz-sm);
+      color: var(--quaternary);
+      line-height: 1.7;
+      margin-bottom: 4px;
+    }
+
+    .entry-desc li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+
+    /* ===========================
+       Skills Grid
+    =========================== */
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .skill-group h4 {
+      font-size: var(--fz-xs);
+      font-weight: 700;
+      color: var(--secondary);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-tag {
+      background: var(--light-green);
+      color: var(--dark-green);
+      border: 1px solid rgba(104, 135, 120, 0.2);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: var(--fz-xs);
+      font-weight: 500;
+    }
+
+
+    /* ===========================
+       Mobile
+    =========================== */
+
+    @media (max-width: 600px) {
+      .resume-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .entry {
+        grid-template-columns: 1fr;
+      }
+
+      .entry-date {
+        grid-row: auto;
+        grid-column: 1;
+        margin-top: 4px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <div id="navbar">
+    <a class="nav-logo" href="./index.html"><span>✦</span> Aurora Lee</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="navMenu">
+      <a href="./index.html"><span class="primary-colored">01. </span>Home</a>
+      <a href="./about.html"><span class="primary-colored">02. </span>About</a>
+      <a href="./resume.html"><span class="primary-colored">03. </span>Resume</a>
+      <a href="./contact.html"><span class="primary-colored">04. </span>Contact</a>
+    </nav>
+  </div>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="resume-page">
+
+    <!-- Header -->
+    <div class="resume-header">
+      <div class="resume-header-left">
+        <h1>Aurora Lee</h1>
+        <p>Master's Student · Aspiring Educator · UC Irvine</p>
+      </div>
+      <div class="resume-actions">
+        <a href="./AuroraLee_Resume.pdf" download class="btn btn-primary">
+          <span class="material-icons">download</span> Download PDF
+        </a>
+        <a href="./contact.html" class="btn btn-outline">
+          <span class="material-icons">mail_outline</span> Contact Me
+        </a>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <section class="resume-section">
+      <div class="resume-section-title">Education</div>
+
+      <div class="entry">
+        <h3 class="entry-title">University of California, Irvine</h3>
+        <span class="entry-date">2025 – Present</span>
+        <div class="entry-subtitle">Master's Degree · Teaching & Credential Program | Dean's Scholarship</div>
+        <ul class="entry-desc">
+          <li>Pursuing graduate studies focused on curriculum design and pedagogy for K–6 learners.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <h3 class="entry-title">Harvard University</h3>
+        <span class="entry-date">2021 – 2025</span>
+        <div class="entry-subtitle">B.A. · Integrative Biology &amp; Secondary in Educational Studies</div>
+        <ul class="entry-desc">
+            <li>Magna Cum Laude | Cum GPA 4.00</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- Experience -->
+    <section class="resume-section">
+      <div class="resume-section-title">Experience</div>
+
+      <div class="entry">
+        <h3 class="entry-title">Your Role Title Here</h3>
+        <span class="entry-date">Month Year – Present</span>
+        <div class="entry-subtitle">Organization / Company Name</div>
+        <ul class="entry-desc">
+          <li>Replace this with a brief description of what you did and the impact it had.</li>
+          <li>Add another bullet for a key responsibility or achievement.</li>
+        </ul>
+      </div>
+
+      <!-- <div class="entry">
+        <h3 class="entry-title">Another Role</h3>
+        <span class="entry-date">Month Year – Month Year</span>
+        <div class="entry-subtitle">Organization / Company Name</div>
+        <ul class="entry-desc">
+          <li>Brief description of responsibilities and impact.</li>
+        </ul>
+      </div> -->
+    </section>
+
+
+    <!-- Skills -->
+    <section class="resume-section">
+      <div class="resume-section-title">Skills &amp; Interests</div>
+      <div class="skills-grid">
+
+        <div class="skill-group">
+          <h4>Teaching</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Curriculum Design</span>
+            <span class="skill-tag">Lesson Planning</span>
+            <span class="skill-tag">Child Development</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Sciences</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Biology</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Hobbies</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Tennis</span>
+            <span class="skill-tag">Crocheting</span>
+            <span class="skill-tag">Journaling</span>
+            <span class="skill-tag">Trader Joe's</span>
+            <span class="skill-tag">Poo</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navMenu   = document.getElementById('navMenu');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('nav-open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('nav-open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', false);
+      });
+    });
+  </script>
+
+</body>
+</html>

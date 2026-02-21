@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Aurora Personal Website</title>
+  <title>Aurora Lee — Contact</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <script src="js/customComponents.js"></script>
+  <script src="js/customComponents.js" defer></script>
 
   <style>
-    /* Ensure the page accounts for the fixed navbar height on ALL devices */
-    body {
-      padding-top: var(--navbar-height);
-    }
+
+    /* ===========================
+       Contact Page Shell
+    =========================== */
 
     .contact-page {
       min-height: calc(100vh - var(--navbar-height));
@@ -22,7 +22,6 @@
       padding: clamp(40px, 6vw, 80px) 20px;
       background: linear-gradient(135deg, var(--light-green) 0%, #fff 60%);
     }
-
 
     /* ===========================
        Contact Card
@@ -37,12 +36,11 @@
       max-width: 580px;
     }
 
-    /* Decorative top bar */
+    /* Decorative gradient bar at the top of the card */
     .contact-card::before {
       content: '';
       display: block;
       height: 4px;
-      border-radius: 4px 4px 0 0;
       background: linear-gradient(90deg, var(--primary), var(--tertiary));
       margin: calc(-1 * clamp(32px, 5vw, 56px)) calc(-1 * clamp(28px, 5vw, 52px)) 32px;
       border-radius: 16px 16px 0 0;
@@ -64,8 +62,36 @@
       color: var(--quaternary);
       font-size: var(--fz-sm);
       margin: 0 0 32px;
+      max-width: 100%;
     }
 
+    /* ===========================
+       Formspree notice (setup helper)
+    =========================== */
+
+    .setup-notice {
+      background: #fffbeb;
+      border: 1.5px dashed #f0c040;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      font-size: var(--fz-xs);
+      color: #7a5c00;
+      line-height: 1.6;
+    }
+
+    .setup-notice strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: var(--fz-sm);
+    }
+
+    .setup-notice code {
+      background: rgba(0,0,0,0.07);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+    }
 
     /* ===========================
        Form Grid
@@ -123,10 +149,27 @@
 
     .form-group textarea {
       resize: vertical;
-      min-height: 120px;
+      min-height: 130px;
       line-height: 1.5;
     }
 
+    /* Error state */
+    .form-group input.error,
+    .form-group textarea.error {
+      border-color: #e07070;
+      box-shadow: 0 0 0 3px rgba(224, 112, 112, 0.15);
+    }
+
+    .field-error {
+      font-size: var(--fz-xs);
+      color: #c0392b;
+      margin-top: 2px;
+      display: none;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
 
     /* ===========================
        Submit Button
@@ -149,75 +192,110 @@
       font-weight: 600;
       letter-spacing: 0.3px;
       cursor: pointer;
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      transition: background-color 0.2s ease, transform 0.1s ease, opacity 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
-    .contact-submit-btn:hover {
+    .contact-submit-btn:hover:not(:disabled) {
       background: var(--tertiary);
     }
 
-    .contact-submit-btn:active {
+    .contact-submit-btn:active:not(:disabled) {
       transform: scale(0.985);
     }
 
+    .contact-submit-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* Spinner inside button while sending */
+    .btn-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    .contact-submit-btn.loading .btn-spinner { display: block; }
+    .contact-submit-btn.loading .btn-label   { display: none; }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
     /* ===========================
-       Success Message
+       Status Messages
     =========================== */
 
-    .success-message {
+    .form-status {
       display: none;
       text-align: center;
-      padding: 20px 0 8px;
+      padding: 24px 0 8px;
     }
 
-    .success-message .checkmark {
-      font-size: 40px;
-      color: var(--primary);
-      margin-bottom: 12px;
+    .form-status .status-icon {
+      font-size: 44px;
+      margin-bottom: 14px;
     }
 
-    .success-message p {
-      font-size: var(--fz-md);
+    .form-status h3 {
+      font-size: var(--fz-lg);
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+
+    .form-status p {
+      font-size: var(--fz-sm);
       color: var(--quaternary);
       margin: 0;
       max-width: 100%;
     }
 
+    .form-status.error-state .status-icon::after { content: '⚠️'; }
+    .form-status.success-state .status-icon::after { content: '✉️'; }
 
     /* ===========================
-       Responsive — Mobile
+       Mobile
     =========================== */
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       .contact-form {
         grid-template-columns: 1fr;
       }
 
-      /* On mobile the navbar wraps and gets taller — add safe extra padding */
-      body {
-        padding-top: calc(var(--navbar-height) + 16px);
+      .contact-page {
+        padding-top: clamp(48px, 8vw, 80px);
+        align-items: flex-start;
       }
     }
+
   </style>
 </head>
 
 <body>
 
+  <!-- ===================== NAVBAR ===================== -->
   <div id="navbar">
-    <nav>
-      <a class="secondary-colored" href="./index.html">
-        <span class="primary-colored">01. </span>Home
-      </a>
-      <a class="secondary-colored" href="./about.html">
-        <span class="primary-colored">02. </span>About
-      </a>
-      <a class="secondary-colored" href="./contact.html">
-        <span class="primary-colored">03. </span>Contact
-      </a>
+    <a class="nav-logo" href="./index.html"><span>✦</span> Aurora Lee</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="navMenu">
+      <a href="./index.html"><span class="primary-colored">01. </span>Home</a>
+      <a href="./about.html"><span class="primary-colored">02. </span>About</a>
+      <a href="./resume.html"><span class="primary-colored">03. </span>Resume</a>
+      <a href="./contact.html"><span class="primary-colored">04. </span>Contact</a>
     </nav>
   </div>
 
+  <!-- ===================== CONTACT ===================== -->
   <div class="contact-page">
     <div class="contact-card">
 
@@ -228,65 +306,146 @@
 
         <div class="form-group">
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" placeholder="First name" required>
+          <input type="text" id="firstName" name="firstName" placeholder="First name" required autocomplete="given-name">
+          <span class="field-error" id="firstNameError">Please enter your first name.</span>
         </div>
 
         <div class="form-group">
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
+          <input type="text" id="lastName" name="lastName" placeholder="Last name" required autocomplete="family-name">
+          <span class="field-error" id="lastNameError">Please enter your last name.</span>
         </div>
 
         <div class="form-group full-width">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          <label for="senderEmail">Your Email</label>
+          <input type="email" id="senderEmail" name="email" placeholder="your@email.com" required autocomplete="email">
+          <span class="field-error" id="emailError">Please enter a valid email address.</span>
         </div>
 
         <div class="form-group full-width">
           <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Message me!" required></textarea>
+          <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+          <span class="field-error" id="messageError">Please write a message.</span>
         </div>
 
         <div class="submit-row">
-          <button type="submit" class="contact-submit-btn">Send Message</button>
+          <button type="submit" class="contact-submit-btn" id="submitBtn">
+            <div class="btn-spinner"></div>
+            <span class="btn-label">Send Message</span>
+          </button>
         </div>
 
       </form>
 
-      <div class="success-message" id="successMessage">
-        <div class="checkmark">✉️</div>
-        <p>Your message is ready! Your email client will open so you can send it.</p>
+      <!-- Success state -->
+      <div class="form-status success-state" id="successMessage">
+        <div class="status-icon"></div>
+        <h3>Message sent!</h3>
+        <p>Thanks for reaching out! I'll get back to you as soon as I can.</p>
+      </div>
+
+      <!-- Error state -->
+      <div class="form-status error-state" id="errorMessage">
+        <div class="status-icon"></div>
+        <h3>Something went wrong</h3>
+        <p>Your message couldn't be sent. Please try again or email me directly.</p>
       </div>
 
     </div>
   </div>
 
   <script>
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    // ── Hamburger nav ──────────────────────────────────────────
+    const navToggle = document.getElementById('navToggle');
+    const navMenu   = document.getElementById('navMenu');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('nav-open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('nav-open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', false);
+      });
+    });
+
+    // ── Formspree submission ───────────────────────────────────
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xnjbgajy';
+
+    const form        = document.getElementById('contactForm');
+    const submitBtn   = document.getElementById('submitBtn');
+    const successMsg  = document.getElementById('successMessage');
+    const errorMsg    = document.getElementById('errorMessage');
+
+    // Field refs for validation
+    const fields = {
+      firstName: { el: document.getElementById('firstName'),    err: document.getElementById('firstNameError'),  validate: v => v.trim().length > 0 },
+      lastName:  { el: document.getElementById('lastName'),     err: document.getElementById('lastNameError'),   validate: v => v.trim().length > 0 },
+      email:     { el: document.getElementById('senderEmail'),  err: document.getElementById('emailError'),      validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+      message:   { el: document.getElementById('message'),      err: document.getElementById('messageError'),    validate: v => v.trim().length > 0 },
+    };
+
+    function validateAll() {
+      let valid = true;
+      for (const key in fields) {
+        const { el, err, validate } = fields[key];
+        const ok = validate(el.value);
+        el.classList.toggle('error', !ok);
+        err.classList.toggle('visible', !ok);
+        if (!ok) valid = false;
+      }
+      return valid;
+    }
+
+    // Clear error styling on input
+    for (const key in fields) {
+      const { el, err } = fields[key];
+      el.addEventListener('input', () => {
+        el.classList.remove('error');
+        err.classList.remove('visible');
+      });
+    }
+
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const firstName = document.getElementById('firstName').value.trim();
-      const lastName  = document.getElementById('lastName').value.trim();
-      const email     = document.getElementById('email').value.trim();
-      const message   = document.getElementById('message').value.trim();
+      if (!validateAll()) return;
 
-      // Basic validation
-      if (!firstName || !lastName || !email || !message) {
-        alert('Please fill in all fields before sending.');
-        return;
+      // Build the payload Formspree receives.
+      // The "email" field is treated by Formspree as the reply-to address,
+      // so you can hit Reply in your inbox to respond directly to the sender.
+      const payload = {
+        firstName: document.getElementById('firstName').value.trim(),
+        lastName:  document.getElementById('lastName').value.trim(),
+        email:     document.getElementById('senderEmail').value.trim(),
+        message:   document.getElementById('message').value.trim(),
+      };
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+
+      try {
+        const res = await fetch(FORMSPREE_ENDPOINT, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body:    JSON.stringify(payload),
+        });
+
+        if (res.ok) {
+          form.style.display = 'none';
+          successMsg.style.display = 'block';
+        } else {
+          throw new Error('Non-OK response');
+        }
+      } catch (err) {
+        form.style.display = 'none';
+        errorMsg.style.display = 'block';
       }
-
-      const fullName = `${firstName} ${lastName}`;
-      const subject  = encodeURIComponent(`Message from ${fullName}`);
-      const body     = encodeURIComponent(
-        `Name: ${fullName}\nEmail: ${email}\n\nMessage:\n${message}`
-      );
-
-      // Open the user's mail client with fields pre-filled
-      window.location.href = `mailto:casaur2@email.com?subject=${subject}&body=${body}`;
-
-      // Show a friendly confirmation
-      document.getElementById('contactForm').style.display = 'none';
-      document.getElementById('successMessage').style.display = 'block';
     });
   </script>
 
