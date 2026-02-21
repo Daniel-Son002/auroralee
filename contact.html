@@ -8,6 +8,15 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="js/customComponents.js" defer></script>
 
+  <!--
+    reCAPTCHA v3 — invisible, no checkbox shown to users.
+    Replace YOUR_RECAPTCHA_SITE_KEY with your Site Key from:
+    https://www.google.com/recaptcha/admin
+    Make sure you also paste your SECRET key into:
+    Formspree dashboard → your form → Settings → reCAPTCHA
+  -->
+  <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY" async defer></script>
+
   <style>
 
     /* ===========================
@@ -63,34 +72,6 @@
       font-size: var(--fz-sm);
       margin: 0 0 32px;
       max-width: 100%;
-    }
-
-    /* ===========================
-       Formspree notice (setup helper)
-    =========================== */
-
-    .setup-notice {
-      background: #fffbeb;
-      border: 1.5px dashed #f0c040;
-      border-radius: 10px;
-      padding: 14px 18px;
-      margin-bottom: 24px;
-      font-size: var(--fz-xs);
-      color: #7a5c00;
-      line-height: 1.6;
-    }
-
-    .setup-notice strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: var(--fz-sm);
-    }
-
-    .setup-notice code {
-      background: rgba(0,0,0,0.07);
-      padding: 1px 5px;
-      border-radius: 4px;
-      font-family: Consolas, monospace;
     }
 
     /* ===========================
@@ -153,7 +134,7 @@
       line-height: 1.5;
     }
 
-    /* Error state */
+    /* Field error state */
     .form-group input.error,
     .form-group textarea.error {
       border-color: #e07070;
@@ -172,12 +153,35 @@
     }
 
     /* ===========================
+       reCAPTCHA legal note
+       Required by Google's terms when hiding the badge
+    =========================== */
+
+    .recaptcha-note {
+      grid-column: 1 / -1;
+      font-size: 11px;
+      color: var(--matcha-grey);
+      line-height: 1.5;
+      margin-top: 2px;
+    }
+
+    .recaptcha-note a {
+      color: var(--tertiary);
+      text-decoration: underline;
+    }
+
+    /* Hide the floating reCAPTCHA badge (legal only if note above is shown) */
+    .grecaptcha-badge {
+      visibility: hidden !important;
+    }
+
+    /* ===========================
        Submit Button
     =========================== */
 
     .submit-row {
       grid-column: 1 / -1;
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .contact-submit-btn {
@@ -199,18 +203,9 @@
       gap: 8px;
     }
 
-    .contact-submit-btn:hover:not(:disabled) {
-      background: var(--tertiary);
-    }
-
-    .contact-submit-btn:active:not(:disabled) {
-      transform: scale(0.985);
-    }
-
-    .contact-submit-btn:disabled {
-      opacity: 0.65;
-      cursor: not-allowed;
-    }
+    .contact-submit-btn:hover:not(:disabled) { background: var(--tertiary); }
+    .contact-submit-btn:active:not(:disabled) { transform: scale(0.985); }
+    .contact-submit-btn:disabled { opacity: 0.65; cursor: not-allowed; }
 
     /* Spinner inside button while sending */
     .btn-spinner {
@@ -221,14 +216,13 @@
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       display: none;
+      flex-shrink: 0;
     }
 
     .contact-submit-btn.loading .btn-spinner { display: block; }
     .contact-submit-btn.loading .btn-label   { display: none; }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ===========================
        Status Messages
@@ -258,8 +252,26 @@
       max-width: 100%;
     }
 
-    .form-status.error-state .status-icon::after { content: '⚠️'; }
+    .form-status.error-state .status-icon::after  { content: '⚠️'; }
     .form-status.success-state .status-icon::after { content: '✉️'; }
+
+    /* Try-again button inside error state */
+    .try-again-btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 9px 20px;
+      background: var(--secondary);
+      color: #fff;
+      border-radius: 8px;
+      font-size: var(--fz-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      border: none;
+      font-family: var(--font-sans);
+    }
+
+    .try-again-btn:hover { background: var(--tertiary); }
 
     /* ===========================
        Mobile
@@ -283,12 +295,12 @@
 
   <!-- ===================== NAVBAR ===================== -->
   <div id="navbar">
-    <a class="nav-logo" href="./index.html"><span>✦</span> Aurora Lee</a>
+    <a class="nav-logo" href="./home.html"><span>✦</span> Aurora Lee</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <nav id="navMenu">
-      <a href="./index.html"><span class="primary-colored">01. </span>Home</a>
+      <a href="./home.html"><span class="primary-colored">01. </span>Home</a>
       <a href="./about.html"><span class="primary-colored">02. </span>About</a>
       <a href="./resume.html"><span class="primary-colored">03. </span>Resume</a>
       <a href="./contact.html"><span class="primary-colored">04. </span>Contact</a>
@@ -324,9 +336,16 @@
 
         <div class="form-group full-width">
           <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+          <textarea id="message" name="message" placeholder="Send me a message!" required></textarea>
           <span class="field-error" id="messageError">Please write a message.</span>
         </div>
+
+        <!-- Required by Google's terms when the reCAPTCHA badge is hidden -->
+        <p class="recaptcha-note">
+          This site is protected by reCAPTCHA and the Google
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and
+          <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a> apply.
+        </p>
 
         <div class="submit-row">
           <button type="submit" class="contact-submit-btn" id="submitBtn">
@@ -349,13 +368,14 @@
         <div class="status-icon"></div>
         <h3>Something went wrong</h3>
         <p>Your message couldn't be sent. Please try again or email me directly.</p>
+        <button class="try-again-btn" id="tryAgainBtn">Try again</button>
       </div>
 
     </div>
   </div>
 
   <script>
-    // ── Hamburger nav ──────────────────────────────────────────
+    // ── Hamburger nav ──────────────────────────────────────────────────────────
     const navToggle = document.getElementById('navToggle');
     const navMenu   = document.getElementById('navMenu');
 
@@ -373,20 +393,31 @@
       });
     });
 
-    // ── Formspree submission ───────────────────────────────────
+    // ── Config ─────────────────────────────────────────────────────────────────
+    //
+    //  FORMSPREE_ENDPOINT  : already set to your form ID (xnjbgajy) ✓
+    //  RECAPTCHA_SITE_KEY  : replace with your Site Key from
+    //                        https://www.google.com/recaptcha/admin
+    //                        Also replace it in the <script src> tag in <head>.
+    //
+    //  Formspree side: Form → Settings → reCAPTCHA → paste your SECRET key.
+    //
     const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xnjbgajy';
+    const RECAPTCHA_SITE_KEY = '6Leu13IsAAAAAPj52g51sYuuSOwAQGAgvLXyRKbv';
 
-    const form        = document.getElementById('contactForm');
-    const submitBtn   = document.getElementById('submitBtn');
-    const successMsg  = document.getElementById('successMessage');
-    const errorMsg    = document.getElementById('errorMessage');
+    // ── DOM refs ───────────────────────────────────────────────────────────────
+    const form       = document.getElementById('contactForm');
+    const submitBtn  = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMessage');
+    const errorMsg   = document.getElementById('errorMessage');
+    const tryAgain   = document.getElementById('tryAgainBtn');
 
-    // Field refs for validation
+    // ── Field validation ───────────────────────────────────────────────────────
     const fields = {
-      firstName: { el: document.getElementById('firstName'),    err: document.getElementById('firstNameError'),  validate: v => v.trim().length > 0 },
-      lastName:  { el: document.getElementById('lastName'),     err: document.getElementById('lastNameError'),   validate: v => v.trim().length > 0 },
-      email:     { el: document.getElementById('senderEmail'),  err: document.getElementById('emailError'),      validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
-      message:   { el: document.getElementById('message'),      err: document.getElementById('messageError'),    validate: v => v.trim().length > 0 },
+      firstName: { el: document.getElementById('firstName'),   err: document.getElementById('firstNameError'), validate: v => v.trim().length > 0 },
+      lastName:  { el: document.getElementById('lastName'),    err: document.getElementById('lastNameError'),  validate: v => v.trim().length > 0 },
+      email:     { el: document.getElementById('senderEmail'), err: document.getElementById('emailError'),     validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+      message:   { el: document.getElementById('message'),     err: document.getElementById('messageError'),   validate: v => v.trim().length > 0 },
     };
 
     function validateAll() {
@@ -401,7 +432,7 @@
       return valid;
     }
 
-    // Clear error styling on input
+    // Clear error styling as the user types
     for (const key in fields) {
       const { el, err } = fields[key];
       el.addEventListener('input', () => {
@@ -410,24 +441,59 @@
       });
     }
 
-    form.addEventListener('submit', async function(e) {
+    // ── Try again — restore form from error state ──────────────────────────────
+    tryAgain.addEventListener('click', () => {
+      errorMsg.style.display = 'none';
+      form.style.display     = 'grid';
+      submitBtn.disabled     = false;
+      submitBtn.classList.remove('loading');
+    });
+
+    // ── Form submission with reCAPTCHA v3 ─────────────────────────────────────
+    //
+    //  Flow:
+    //  1. Validate fields locally.
+    //  2. Call grecaptcha.execute() — invisible, no challenge shown to user.
+    //  3. POST the token as "g-recaptcha-response" alongside form data.
+    //  4. Formspree verifies the token with Google server-side using your
+    //     secret key, then forwards the email if it passes.
+    //
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
       if (!validateAll()) return;
 
-      // Build the payload Formspree receives.
-      // The "email" field is treated by Formspree as the reply-to address,
-      // so you can hit Reply in your inbox to respond directly to the sender.
-      const payload = {
-        firstName: document.getElementById('firstName').value.trim(),
-        lastName:  document.getElementById('lastName').value.trim(),
-        email:     document.getElementById('senderEmail').value.trim(),
-        message:   document.getElementById('message').value.trim(),
-      };
-
-      // Show loading state
       submitBtn.disabled = true;
       submitBtn.classList.add('loading');
+
+      // Step 1: get reCAPTCHA token invisibly
+      let recaptchaToken;
+      try {
+        recaptchaToken = await new Promise((resolve, reject) => {
+          grecaptcha.ready(async () => {
+            try {
+              const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'contact_submit' });
+              resolve(token);
+            } catch (err) {
+              reject(err);
+            }
+          });
+        });
+      } catch (err) {
+        console.error('reCAPTCHA error:', err);
+        showError();
+        return;
+      }
+
+      // Step 2: POST to Formspree with token included
+      // "g-recaptcha-response" is the exact field name Formspree expects
+      const payload = {
+        firstName:              document.getElementById('firstName').value.trim(),
+        lastName:               document.getElementById('lastName').value.trim(),
+        email:                  document.getElementById('senderEmail').value.trim(),
+        message:                document.getElementById('message').value.trim(),
+        'g-recaptcha-response': recaptchaToken,
+      };
 
       try {
         const res = await fetch(FORMSPREE_ENDPOINT, {
@@ -437,16 +503,25 @@
         });
 
         if (res.ok) {
-          form.style.display = 'none';
+          form.style.display       = 'none';
           successMsg.style.display = 'block';
         } else {
-          throw new Error('Non-OK response');
+          const body = await res.json().catch(() => ({}));
+          console.error('Formspree rejected submission:', res.status, body);
+          showError();
         }
       } catch (err) {
-        form.style.display = 'none';
-        errorMsg.style.display = 'block';
+        console.error('Network error:', err);
+        showError();
       }
     });
+
+    function showError() {
+      form.style.display     = 'none';
+      errorMsg.style.display = 'block';
+      submitBtn.disabled     = false;
+      submitBtn.classList.remove('loading');
+    }
   </script>
 
 </body>
