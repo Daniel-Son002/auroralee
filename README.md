@@ -1,1 +1,1 @@
-Link to documentation site: https://aurzlee.github.io/PS70/
+Link to site: https://daniel-son002.github.io/auroralee/
