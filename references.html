@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Aurora Lee — References</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <style>
+
+    .references-page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 48px) 80px;
+    }
+
+    .references-page > h2 {
+      font-size: clamp(22px, 4vw, 32px);
+      margin-bottom: 40px;
+    }
+
+    /* ===========================
+       Quote Bubbles Grid
+    =========================== */
+
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 52px;
+    }
+
+    .quote-bubble {
+      background: #fff;
+      border-radius: 16px;
+      padding: 22px 24px 18px;
+      box-shadow: var(--navy-box-shadow);
+      border-left: 3px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .quote-bubble:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px -8px var(--navy-shadow);
+    }
+
+    .quote-mark {
+      font-size: 36px;
+      line-height: 1;
+      color: var(--primary);
+      font-family: Georgia, serif;
+      margin-bottom: -6px;
+    }
+
+    .quote-text {
+      font-size: var(--fz-sm);
+      color: var(--secondary);
+      line-height: 1.7;
+      font-style: italic;
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .quote-attribution {
+      font-size: var(--fz-xs);
+      font-weight: 700;
+      color: var(--tertiary);
+      margin: 4px 0 0;
+      line-height: 1.4;
+    }
+
+    /* ===========================
+       Image Gallery
+    =========================== */
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .section-divider span {
+      font-size: var(--fz-xs);
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      white-space: nowrap;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--light-grey);
+    }
+
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+
+    /* Images display at full natural aspect ratio — no cropping */
+    .gallery-img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: var(--navy-box-shadow);
+      display: block;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .gallery-img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 14px 36px -8px var(--navy-shadow);
+    }
+
+    /* card4 spans 2 columns so it stays wide but shows in full */
+    .gallery-item--span2 {
+      grid-column: span 2;
+    }
+
+    /* ===========================
+       Mobile
+    =========================== */
+
+    @media (max-width: 700px) {
+      .quotes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .image-gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .gallery-item--span2 {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .image-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item--span2 {
+        grid-column: span 1;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <div id="navbar">
+    <a class="nav-logo" href="./home.html"><span>✦</span> Aurora Lee</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="navMenu">
+      <a href="./home.html"><span class="primary-colored">01. </span>Home</a>
+      <a href="./about.html"><span class="primary-colored">02. </span>About</a>
+      <a href="./lessons.html"><span class="primary-colored">03. </span>Lessons</a>
+      <a href="./references.html"><span class="primary-colored">04. </span>References</a>
+      <a href="./resume.html"><span class="primary-colored">05. </span>Resume</a>
+      <a href="./contact.html"><span class="primary-colored">06. </span>Contact</a>
+    </nav>
+  </div>
+
+  <!-- ===================== REFERENCES ===================== -->
+  <div class="references-page">
+
+    <h2><span class="primary-colored">04. </span><span class="secondary-colored">References</span></h2>
+
+    <!-- Quote bubbles — 2-column grid, compact and tight -->
+    <div class="quotes-grid">
+
+      <div class="quote-bubble">
+        <!-- <div class="quote-mark">"</div> -->
+        <p class="quote-text">Aurora understands how to break down complex concepts in ways that stem curiosity, encourage sense making, and deepen understanding. She has a remarkable ability to read her students and situate their learning within their ZPD.</p>
+        <p class="quote-attribution">Dr. Evelyn Young<br>Multiple Subject Coordinator | UCI MAT + Credential Program</p>
+      </div>
+
+      <div class="quote-bubble">
+        <!-- <div class="quote-mark">"</div> -->
+        <p class="quote-text">She exhibits an exceptional depth in her content area knowledge especially in Math and Science. This translates into passion, rigor, and depth in student learning.</p>
+        <p class="quote-attribution">Grace Lee-Chang<br>Student Teacher Supervisor | UCI MAT + Credential Program</p>
+      </div>
+
+      <div class="quote-bubble">
+        <!-- <div class="quote-mark">"</div> -->
+        <p class="quote-text">Aurora Lee possesses the rare combination of strong instructional skill, genuine care for students, and an outstanding work ethic. She is a natural teacher who builds meaningful relationships, reflects thoughtfully on her practice, and continually strives for excellence.</p>
+        <p class="quote-attribution">Lisa Holman<br>6th Grade Mentor Teacher | Davis Magnet Elementary</p>
+      </div>
+
+      <div class="quote-bubble">
+        <!-- <div class="quote-mark">"</div> -->
+        <p class="quote-text">Aurora excels at creating an inclusive classroom environment where students feel comfortable taking risks, offering opinions, and sharing alternative perspectives.</p>
+        <p class="quote-attribution">Jackie Christy<br>Student Teacher Supervisor | UCI MAT + Credential Program</p>
+      </div>
+
+    </div>
+
+    <!-- Image gallery — separated from quotes, varied sizing -->
+    <div class="section-divider">
+      <span>From the Classroom</span>
+    </div>
+
+    <div class="image-gallery">
+
+      <div class="gallery-item">
+        <img class="gallery-img" src="card1.jpg" alt="Classroom moment">
+      </div>
+
+      <div class="gallery-item">
+        <img class="gallery-img" src="card2.jpeg" alt="Classroom moment">
+      </div>
+
+      <div class="gallery-item">
+        <img class="gallery-img" src="card3.jpg" alt="Classroom moment">
+      </div>
+
+      <div class="gallery-item gallery-item--span2">
+        <img class="gallery-img" src="card4.jpeg" alt="Classroom moment">
+      </div>
+
+      <div class="gallery-item">
+        <img class="gallery-img" src="card5.jpeg" alt="Classroom moment">
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navMenu   = document.getElementById('navMenu');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('nav-open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('nav-open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', false);
+      });
+    });
+  </script>
+
+</body>
+</html>

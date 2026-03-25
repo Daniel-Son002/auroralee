@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Aurora Lee — Lessons</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <style>
+
+    /* ===========================
+       Page Shell
+    =========================== */
+
+    .lessons-page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 48px) 80px;
+    }
+
+    .lessons-page > h2 {
+      font-size: clamp(22px, 4vw, 32px);
+      margin-bottom: 40px;
+    }
+
+    /* ===========================
+       Lesson Cards Grid
+    =========================== */
+
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .lesson-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: var(--navy-box-shadow);
+      border-top: 4px solid var(--primary);
+      padding: 28px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px -8px var(--navy-shadow);
+    }
+
+    /* Grade / subject tag */
+    .lesson-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--light-green);
+      color: var(--dark-green);
+      font-size: var(--fz-xs);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+
+    .lesson-card h3 {
+      font-size: clamp(17px, 2.5vw, 20px);
+      color: var(--secondary);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .lesson-card p {
+      font-size: var(--fz-sm);
+      color: var(--quaternary);
+      margin: 0;
+      line-height: 1.6;
+      max-width: 100%;
+      flex: 1;  /* pushes button to bottom */
+    }
+
+    /* Divider between description and button */
+    .lesson-card-footer {
+      border-top: 1px solid var(--light-grey);
+      padding-top: 16px;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .lesson-meta {
+      font-size: var(--fz-xs);
+      color: var(--matcha-grey);
+      font-weight: 500;
+    }
+
+    /* Download button */
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      background: var(--secondary);
+      color: #fff;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: var(--fz-sm);
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.1s ease;
+      white-space: nowrap;
+    }
+
+    .btn-download:hover {
+      background: var(--tertiary);
+      color: #fff;
+    }
+
+    .btn-download:active {
+      transform: scale(0.97);
+    }
+
+    .btn-download .material-icons {
+      font-size: 16px;
+    }
+
+    /* ===========================
+       Mobile
+    =========================== */
+
+    @media (max-width: 600px) {
+      .lessons-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <div id="navbar">
+    <a class="nav-logo" href="./home.html"><span>✦</span> Aurora Lee</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="navMenu">
+      <a href="./home.html"><span class="primary-colored">01. </span>Home</a>
+      <a href="./about.html"><span class="primary-colored">02. </span>About</a>
+      <a href="./lessons.html"><span class="primary-colored">03. </span>Lessons</a>
+      <a href="./references.html"><span class="primary-colored">04. </span>References</a>
+      <a href="./resume.html"><span class="primary-colored">05. </span>Resume</a>
+      <a href="./contact.html"><span class="primary-colored">06. </span>Contact</a>
+    </nav>
+  </div>
+
+  <!-- ===================== LESSONS ===================== -->
+  <div class="lessons-page">
+
+    <h2><span class="primary-colored">03. </span><span class="secondary-colored">Lessons</span></h2>
+
+    <div class="lessons-grid">
+
+      <!-- Lesson 1 -->
+      <div class="lesson-card">
+        <span class="lesson-tag">
+          <span class="material-icons" style="font-size:13px;">school</span>
+          6th Grade · P.E.
+        </span>
+        <h3>Dance Unit</h3>
+        <p>Students will be able to create a cooperative line dance by combining provided steps with moves chosen in small groups to ultimately perform for their peers. Performances should demonstrate that groups have practiced moving in sync with agreed-upon arm movements, and individual students should demonstrate enthusiasm and a positive attitude. Students will be able to explain how to find heart rate by calculating their own heart rates. Students will make connections to their current math knowledge of ratios to find their heart rate in beats per minute.</p>
+        <div class="lesson-card-footer">
+          <span class="lesson-meta">PDF · Lesson Plan</span>
+          <a href="./6th_Grade_Dance.pdf" download class="btn-download">
+            <span class="material-icons">download</span> Download
+          </a>
+        </div>
+      </div>
+
+      <!-- Lesson 2 -->
+      <div class="lesson-card">
+        <span class="lesson-tag">
+          <span class="material-icons" style="font-size:13px;">school</span>
+          6th Grade · ELA
+        </span>
+        <h3>Dialogic Reading</h3>
+        <p>Students will identify explicit evidence from the text to categorize topics within the reading passage by contributing to a group chart of life and physical science descriptions. Students will evaluate peers’ contributions respectfully to advance group understanding of the text by acknowledging others’ thoughts, drawing connections, and expressing positive support for each other.</p>
+        <div class="lesson-card-footer">
+          <span class="lesson-meta">PDF · Lesson Plan</span>
+          <a href="./6th_Grade_Dialogic.pdf" download class="btn-download">
+            <span class="material-icons">download</span> Download
+          </a>
+        </div>
+      </div>
+
+      <!-- Lesson 3 — update title, tag, description, and PDF filename -->
+      <div class="lesson-card">
+        <span class="lesson-tag">
+          <span class="material-icons" style="font-size:13px;">school</span>
+          3rd Grade · ELD
+        </span>
+        <h3>Grammatical Structure</h3>
+        <p>Students will identify the function of verbs in a specific sentence by brainstorming appropriate words to complete a sentence frame and explaining why those words fit into the sentence frame.</p>
+        <div class="lesson-card-footer">
+          <span class="lesson-meta">PDF · Lesson Plan</span>
+          <a href="./3rd_Grade_Grammatical_Structure.pdf" download class="btn-download">
+            <span class="material-icons">download</span> Download
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navMenu   = document.getElementById('navMenu');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('nav-open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('nav-open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', false);
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -6,7 +6,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <!-- <script src="js/customComponents.js" defer></script> -->
+
+  <style>
+
+    /* ===========================
+       About Page Shell
+    =========================== */
+
+    .about-page {
+      width: 100%;
+      /* Minimal side padding so images reach near the viewport edges */
+      padding: clamp(40px, 6vw, 80px) clamp(16px, 2vw, 32px) 80px;
+    }
+
+    .about-page > h2 {
+      font-size: clamp(22px, 4vw, 32px);
+      margin-bottom: 40px;
+      padding-left: 8px;
+    }
+
+    /* ===========================
+       Layout: photos flanking centered bio
+    =========================== */
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(340px, 2fr) minmax(180px, 1fr);
+      gap: 28px;
+      align-items: stretch;   /* all columns same height */
+    }
+
+    /* ===========================
+       Photos
+    =========================== */
+
+    .about-photo {
+      width: 100%;
+      height: 100%;           /* fill the full grid row height */
+      min-height: 300px;      /* floor so short content doesn't collapse them */
+      border-radius: 14px;
+      box-shadow: var(--navy-box-shadow);
+      display: block;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    /* Wrappers stretch to full grid row height, images fill them */
+    .photo-wrap-left,
+    .photo-wrap-right {
+      display: flex;
+      align-self: stretch;
+      align-items: flex-start; /* image anchors to top, grows downward */
+    }
+
+    /* ===========================
+       Bio Card — centered column
+    =========================== */
+
+    .about-bio {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: var(--navy-box-shadow);
+      padding: clamp(28px, 4vw, 44px) clamp(24px, 3vw, 40px);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      border-top: 4px solid var(--primary);
+    }
+
+    .about-bio p {
+      font-size: var(--fz-md);
+      color: var(--secondary);
+      line-height: 1.8;
+      margin: 0;
+      max-width: 100%;
+      font-family: var(--font-sans);
+      font-style: normal;
+    }
+
+    /* ===========================
+       Mobile — stack vertically
+    =========================== */
+
+    @media (max-width: 820px) {
+      .about-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      /* Side-by-side photos on tablet */
+      .about-photos-mobile {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .photo-left,
+      .photo-right {
+        aspect-ratio: 4 / 5;
+        width: 100%;
+      }
+
+      /* Bio goes in between on mobile */
+      .about-bio {
+        order: 2;
+      }
+
+      .photo-wrap-left  { order: 1; }
+      .photo-wrap-right { order: 3; }
+    }
+
+    @media (max-width: 500px) {
+      .about-layout {
+        gap: 20px;
+      }
+
+      .photo-left,
+      .photo-right {
+        aspect-ratio: 3 / 2;
+      }
+    }
+
+  </style>
 </head>
 
 <body>
@@ -20,46 +141,55 @@
     <nav id="navMenu">
       <a href="./home.html"><span class="primary-colored">01. </span>Home</a>
       <a href="./about.html"><span class="primary-colored">02. </span>About</a>
-      <a href="./resume.html"><span class="primary-colored">03. </span>Resume</a>
-      <a href="./contact.html"><span class="primary-colored">04. </span>Contact</a>
+      <a href="./lessons.html"><span class="primary-colored">03. </span>Lessons</a>
+      <a href="./references.html"><span class="primary-colored">04. </span>References</a>
+      <a href="./resume.html"><span class="primary-colored">05. </span>Resume</a>
+      <a href="./contact.html"><span class="primary-colored">06. </span>Contact</a>
     </nav>
   </div>
 
   <!-- ===================== ABOUT ===================== -->
-  <div class="section">
-    <div id="about">
-      <h2><span class="primary-colored">02. </span><span class="secondary-colored">About</span></h2>
-      <div class="section-content">
-        <div>
-          <img src="uci.jpeg" alt="Me at UCI" id="uci">
-        </div>
-        <div class="code-block">
-            <p>
-              <span class="code-white">Hi! My name is Aurora Lee, and I am currently a candidate in the University of California, Irvine (UCI) 
-                Master of Arts in Teaching + Credential program for Multiple Subjects. I graduated from Harvard in May of 2025 with a B.A. in 
-                Integrative Biology and minor in Educational Studies. 
-              </span>
-            </p>
-            <p>
-              <span class="code-white">
-              As a UCI MAT Multiple Subject candidate, I have gained experience student teaching in elementary schools in Orange County, CA while 
-              learning about research-based teaching practices, inquiry-based learning, and integrating disciplines to support student growth. I 
-              have always loved teaching and find so much joy in building strong student-teacher relationships that keep me smiling every day in 
-              the classroom. As an educator, I work hard to include all students and create a positive, supportive, and academically challenging 
-              learning environment. I hope to continue to support students in achieving their individual goals and spread my love of learning. 
-              </span>
-            </p>
-        </div>
-        <div>
-          <img src="aurora_harvard.jpg" alt="Harvard grad" id="headshot">
-        </div>
+  <div class="about-page">
+
+    <h2><span class="primary-colored">02. </span><span class="secondary-colored">About</span></h2>
+
+    <div class="about-layout">
+
+      <!-- Left photo -->
+      <div class="photo-wrap-left">
+        <img class="about-photo photo-left" src="uci.jpeg" alt="Aurora at UCI">
       </div>
+
+      <!-- Centered bio card -->
+      <div class="about-bio">
+        <p>
+          Hi! My name is Aurora Lee, and I am currently a candidate in the University of California, Irvine (UCI)
+          Master of Arts in Teaching + Credential program for Multiple Subjects. I graduated from Harvard in May
+          of 2025 with a B.A. in Integrative Biology and a minor in Educational Studies.
+        </p>
+        <p>
+          As a UCI MAT Multiple Subject candidate, I have gained experience student teaching in elementary schools
+          in Orange County, CA while learning about research-based teaching practices, inquiry-based learning, and
+          integrating disciplines to support student growth. I have always loved teaching and find so much joy in
+          building strong student-teacher relationships that keep me smiling every day in the classroom.
+        </p>
+        <p>
+          As an educator, I work hard to include all students and create a positive, supportive, and academically
+          challenging learning environment. I hope to continue to support students in achieving their individual
+          goals and spread my love of learning.
+        </p>
+      </div>
+
+      <!-- Right photo -->
+      <div class="photo-wrap-right">
+        <img class="about-photo photo-right" src="aurora_harvard.jpg" alt="Aurora at Harvard graduation">
+      </div>
+
     </div>
   </div>
 
   <!-- ===================== SCRIPTS ===================== -->
   <script>
-    // Hamburger menu toggle
     const navToggle = document.getElementById('navToggle');
     const navMenu   = document.getElementById('navMenu');
 
@@ -69,7 +199,6 @@
       navToggle.setAttribute('aria-expanded', isOpen);
     });
 
-    // Close menu when a link is tapped
     navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('nav-open');
