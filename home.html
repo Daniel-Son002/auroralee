@@ -6,7 +6,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <!-- <script src="js/customComponents.js" defer></script> -->
+
+  <!--
+    Preload About page images while the user is on the home page.
+    The browser fetches and caches them in the background at high priority,
+    so they appear instantly when navigating to about.html.
+  -->
+  <link rel="preload" href="uci.jpeg"           as="image">
+  <link rel="preload" href="aurora_harvard.jpg" as="image">
+
+  <style>
+
+    /* ===========================
+       Hero layout: text left, staggered photos right
+    =========================== */
+
+    #intro {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .intro-text {
+      flex: 0 0 auto;
+    }
+
+    /* ===========================
+       Staggered photo cluster
+    =========================== */
+
+    .intro-photos {
+      position: relative;
+      flex: 0 0 auto;
+      /* Width = photo width + horizontal offset of second photo */
+      width: 420px;
+      /* Height = photo height + vertical offset of second photo */
+      height: 360px;
+    }
+
+    .intro-photos img {
+      position: absolute;
+      border-radius: 12px;
+      box-shadow: var(--navy-box-shadow);
+      object-fit: cover;
+      display: block;
+    }
+
+    /* First photo — top-left anchor */
+    #students {
+      width: 280px;
+      height: 210px;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    /* Second photo — shifted right ~50% and down */
+    #teaching {
+      width: 260px;
+      height: 195px;
+      top: 155px;       /* overlap slightly with first photo */
+      left: 155px;      /* shifted right by ~half the first photo width */
+      z-index: 1;
+    }
+
+    /* ===========================
+       Mobile — stack vertically, no overlap
+    =========================== */
+
+    @media (max-width: 768px) {
+      #intro {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+      }
+
+      .intro-photos {
+        width: 100%;
+        height: auto;
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .intro-photos img {
+        position: static;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+  </style>
 </head>
 
 <body>
@@ -30,20 +124,23 @@
   <!-- ===================== HERO ===================== -->
   <div class="section">
     <div id="intro">
-      <div>
+
+      <div class="intro-text">
         <h2 id="intro-line">Hi, my name is</h2>
         <h2 id="name">Aurora Lee</h2>
-      </div>
-      <div>
         <p id="description">Welcome to my teaching portfolio!</p>
-        <img src="students.jpg" alt="Me with my students" id="students" width="300" height="200">
       </div>
+
+      <div class="intro-photos">
+        <img src="students.jpg" alt="Me with my students" id="students">
+        <img src="teaching.jpg" alt="Me teaching" id="teaching">
+      </div>
+
     </div>
   </div>
 
   <!-- ===================== SCRIPTS ===================== -->
   <script>
-    // Hamburger menu toggle
     const navToggle = document.getElementById('navToggle');
     const navMenu   = document.getElementById('navMenu');
 
@@ -53,7 +150,6 @@
       navToggle.setAttribute('aria-expanded', isOpen);
     });
 
-    // Close menu when a link is tapped
     navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('nav-open');
@@ -62,6 +158,16 @@
       });
     });
   </script>
+
+  <!--
+    Hidden image prefetch fallback — older browsers that don't support
+    <link rel="preload"> will still fetch these via the img elements.
+    display:none means they never appear visually.
+  -->
+  <div aria-hidden="true" style="display:none; position:absolute;">
+    <img src="uci.jpeg"           alt="" width="1" height="1">
+    <img src="aurora_harvard.jpg" alt="" width="1" height="1">
+  </div>
 
 </body>
 </html>
